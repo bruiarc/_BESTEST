@@ -1,5 +1,5 @@
 case,metric,value,unit,occurrence_time_s,result_source,implementation,run_mode,formal_ashrae_result,lower,upper,within_ashrae_range
 600,annual_heating_energy,4.657996766471248,MWh,,Modelica,modelica,native,True,3.75,4.98,True
-600,annual_cooling_energy,5.802665956514086,MWh,,Modelica,modelica,native,True,5.0,6.83,True
 600,annual_heating_energy,5.502373200951481,MWh,,RClib,iso13790,native,True,3.75,4.98,False
+600,annual_cooling_energy,5.802665956514086,MWh,,Modelica,modelica,native,True,5.0,6.83,True
 600,annual_cooling_energy,1.4137715658587533,MWh,,RClib,iso13790,native,True,5.0,6.83,False

@@ -1,0 +1,13 @@
+case,metric,value,unit,occurrence_time_s,result_source,implementation,run_mode,formal_ashrae_result
+630,annual_heating_energy,5.096714865560632,MWh,,Modelica,modelica,native,True
+630,annual_cooling_energy,2.9538472718830326,MWh,,Modelica,modelica,native,True
+630,peak_heating_load,3.2506871402390796,kW,31536000.0,Modelica,modelica,native,True
+630,peak_cooling_load,3.733348597264555,kW,15271200.0,Modelica,modelica,native,True
+630,annual_heating_energy,5.259891767036681,MWh,,RClib,iso13790,native,True
+630,annual_cooling_energy,2.7988665738438234,MWh,,RClib,iso13790,native,True
+630,peak_heating_load,3.2577483903768587,kW,31536000.0,RClib,iso13790,native,True
+630,peak_cooling_load,3.806670776887442,kW,15264000.0,RClib,iso13790,native,True
+630,annual_heating_energy,5.052480402662963,MWh,,RClib,iso13790,diagnostic_modelica_solar,False
+630,annual_cooling_energy,2.9231820055034676,MWh,,RClib,iso13790,diagnostic_modelica_solar,False
+630,peak_heating_load,3.3338459150223105,kW,31536000.0,RClib,iso13790,diagnostic_modelica_solar,False
+630,peak_cooling_load,3.739980478918273,kW,15267600.0,RClib,iso13790,diagnostic_modelica_solar,False
