@@ -1,0 +1,12 @@
+quantity,ashrae_value,ashrae_unit,modelica_parameter,modelica_value,iso_parameter,iso_value,mapping_type,notes
+floor area,48,m2,zonHVAC.AFlo,48,Zone.floor_area,48,direct,Common prescribed geometry
+room volume,129.6,m3,zonHVAC.VRoo,129.6,Zone.room_vol,129.6,direct,Common prescribed geometry
+south window area,12,m2,zonHVAC.AWin[3],12,Zone.window_area,12,direct,Common prescribed glazing
+wall/roof/floor U-values,0.53/0.33/0.038,W/m2K,zonHVAC.UWal/URoo/UFlo,0.53/0.33/0.038,Zone aggregate opaque UA,51.372,aggregated,Same envelope as Case 600
+window U-value and g-value,3.1/0.769,W/m2K/-,zonHVAC.UWin/gFac,3.1/0.769,Zone.u_windows/Window.glass_solar_transmittance,3.1/0.769,direct,Same glazing as Case 600
+thermal mass capacity,307750,J/m2K,buiMas.heaC,307750,Zone.thermal_capacitance_per_floor_area,307750,direct,Case 900 heavyweight difference
+effective mass area factor,2.43,m2/m2,buiMas.facMas,2.43,Zone.effective_mass_area_per_floor_area,2.43,direct,Case 900 heavyweight difference
+infiltration,0.414,1/h,zonHVAC.airRat,0.414,Zone.h_ve_adj,17.8848,derived,1200 J/m3K x ACH x volume / 3600
+internal sensible gain,200,W,intGai.k,200,Zone.solve_energy,200,direct,Constant gain
+setpoints,20/27,degC,TSetHea/TSetCoo,20/27,Zone.t_set_heating/t_set_cooling,20/27,direct,Modelica PI versus ISO hourly ideal control
+weather,USA_CO_Denver.Intl.AP.725650_TMY3,TMY3,ReaderTMY3,Denver MOS,Location,Denver EPW,direct,Same named weather source

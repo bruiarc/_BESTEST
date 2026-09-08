@@ -1,0 +1,16 @@
+{
+  "base_case": "600",
+  "cases": {
+    "600": {"changes": []},
+    "610": {"changes": ["south-window shading factor: 0.84"]},
+    "620": {"changes": ["window distribution: west 6 m2; east 6 m2; no south window"]},
+    "630": {"changes": ["window distribution: west 6 m2; east 6 m2; no south window", "window shading factor: 0.846 × 0.915"]},
+    "640": {"changes": ["heating schedule: 10 C 23:00–07:00; ramp 07:00–08:00; 20 C 08:00–23:00"]},
+    "650": {"changes": ["heating off", "cooling available 07:00–18:00 at 27 C", "night ventilation: 1409 m3/h 18:00–07:00"]},
+    "660": {"changes": ["window U-value: 1.45 W/(m2 K)", "window solar g-value: 0.44"]},
+    "670": {"changes": ["window U-value: 7.8 W/(m2 K)", "window solar g-value: 0.864"]},
+    "680": {"changes": ["wall U-value: 0.15 W/(m2 K)", "roof U-value: 0.10 W/(m2 K)"]},
+    "685": {"changes": ["heating setpoint: 19.9 C", "cooling setpoint: 20.1 C"]},
+    "695": {"changes": ["wall U-value: 0.15 W/(m2 K)", "roof U-value: 0.10 W/(m2 K)", "heating setpoint: 19.9 C", "cooling setpoint: 20.1 C"]}
+  }
+}

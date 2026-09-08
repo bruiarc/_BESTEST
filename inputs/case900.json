@@ -1,0 +1,12 @@
+{
+  "case": "900",
+  "authority": "ANSI/ASHRAE Standard 140-2020 BESTEST prescribed case",
+  "purpose": "Canonical physical input record; not an implementation adapter.",
+  "geometry": {"length_m": 8.0, "width_m": 6.0, "height_m": 2.7, "floor_area_m2": 48.0, "volume_m3": 129.6},
+  "surfaces": {"walls": [{"orientation": "north", "area_m2": 21.6}, {"orientation": "west", "area_m2": 16.2}, {"orientation": "south", "area_m2": 9.6}, {"orientation": "east", "area_m2": 16.2}], "roof_area_m2": 48.0, "floor_area_m2": 48.0, "windows": [{"orientation": "south", "area_m2": 12.0, "u_value_W_m2K": 3.1, "solar_g_value": 0.769, "shading": "none"}]},
+  "constructions": {"wall_u_value_W_m2K": 0.53, "roof_u_value_W_m2K": 0.33, "floor_u_value_W_m2K": 0.038, "mass_class": "heavyweight", "mass_capacity_J_m2K": 307750.0, "effective_mass_area_factor_m2_m2": 2.43},
+  "air_and_gains": {"infiltration_ach": 0.414, "mechanical_ventilation": "none", "internal_sensible_gain_W": 200.0, "radiative_convective_split": "prescribed total gain; implementation allocation must be declared"},
+  "control": {"heating_setpoint_C": 20.0, "cooling_setpoint_C": 27.0, "specification": "dual setpoint; implementation-native controller permitted"},
+  "weather": {"identifier": "USA_CO_Denver.Intl.AP.725650_TMY3", "calendar": "non-leap 365-day year", "start_s": 0, "end_s": 31536000, "timestep_s": 3600, "output_timestep_s": 3600},
+  "differences_from_case600": {"thermal_mass": "heavyweight", "mass_capacity_J_m2K": 307750.0, "effective_mass_area_factor_m2_m2": 2.43, "other_prescribed_inputs": "same as Case 600"}
+}

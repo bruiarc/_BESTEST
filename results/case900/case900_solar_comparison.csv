@@ -1,0 +1,5 @@
+quantity,value
+native_rclib_zone_solar_MWh,4.270377265993608
+modelica_resolved_zone_solar_MWh,12.112388823424308
+difference_MWh,7.842011557430699
+difference_percent_of_modelica,64.74372373404105
