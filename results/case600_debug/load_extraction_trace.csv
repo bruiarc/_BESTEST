@@ -1,0 +1,4 @@
+stage,heating_MWh,cooling_MWh_signed
+raw ISO signed demand,5.502373200951481,-1.4137715658587533
+positive clipping for standard schema,5.502373200951481,1.4137715658587533
+existing Case600 native standardized output,5.502373200951481,1.4137715658587533

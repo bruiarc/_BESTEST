@@ -1,0 +1,2 @@
+prescribed_total_W,annual_integrated_MWh,air_node_W,surface_internal_component_W,mass_internal_component_W,schedule,notes
+200.0,1.752,100.0,15.10028433105356,82.51748251748252,constant 8760 h,ISO implementation allocates gain using its Annex-C source terms; solar is not included in these isolated internal components.

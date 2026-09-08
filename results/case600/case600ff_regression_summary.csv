@@ -1,0 +1,2 @@
+Case,Compared variable,Rows,mae_C,rmse_C,max_abs_C,formal_ashrae_result
+600FF,ETHlib T_air − Modelica TAir,8760,0.298895373708802,0.4764734300659964,2.81111719060862,False

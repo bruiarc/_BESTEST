@@ -1,0 +1,6 @@
+quantity,ASHRAE_prescribed,Python_input_or_derived,Modelica_diagnostic,status,notes
+window area,12,12,12,PASS,direct prescribed quantity
+south orientation,south,south (azimuth 0 in RClib convention),south Modelica index 3,PASS,"convention differs, physical orientation matches"
+g value,0.769,0.769,0.769,PASS,native Window receives prescribed value
+frame fraction,not separately prescribed,0.001,0.001,UNRESOLVED,implementation default/diagnostic assumption
+native annual total solar MWh,,4.270377265993608,12.112388823424308,LIKELY ISSUE,native total is substantially lower

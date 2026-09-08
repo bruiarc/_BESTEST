@@ -1,0 +1,17 @@
+quantity,ashrae_value,ashrae_unit,modelica_parameter,modelica_value,iso_parameter,iso_value,vdi_parameter,vdi_value,mapping_type,notes
+floor area,48,m2,zonHVAC.AFlo,48,Zone.floor_area,48,not_run,,direct,Common prescribed geometry
+room volume,129.6,m3,zonHVAC.VRoo,129.6,Zone.room_vol,129.6,not_run,,direct,Common prescribed geometry
+south window area,12,m2,zonHVAC.AWin[3],12,Zone.window_area,12,not_run,,direct,Orientation ordering is implementation specific
+opaque wall area,63.6,m2,sum(zonHVAC.AWal),63.6,Zone.walls_area component,63.6,not_run,,aggregated,ISO Zone receives total opaque area with aggregate UA
+wall U-value,0.53,W/m2K,zonHVAC.UWal,0.53,Zone.u_walls aggregate,0.322154,not_run,,aggregated,ISO value is total opaque UA divided by 159.6 m2
+roof U-value,0.33,W/m2K,zonHVAC.URoo,0.33,Zone.u_walls aggregate,0.322154,not_run,,aggregated,Retained in ISO aggregate UA
+floor U-value,0.038,W/m2K,zonHVAC.UFlo,0.038,Zone.u_walls aggregate,0.322154,not_run,,aggregated,Retained in ISO aggregate UA
+window U-value,3.1,W/m2K,zonHVAC.UWin,3.1,Zone.u_windows,3.1,not_run,,direct,Common prescribed glazing property
+solar g-value,0.769,dimensionless,zonHVAC.gFac,0.769,Window.glass_solar_transmittance,0.769,not_run,,implementation_specific,Native solar algorithms have distinct physical representations
+infiltration,0.414,1/h,zonHVAC.airRat,0.414,Zone.h_ve_adj derived,17.8848,not_run,,derived,1200 J/m3K x ACH x volume / 3600
+internal sensible gain,200,W,intGai.k,200,Zone.solve_energy internal_gains,200,not_run,,direct,Gain allocation is implementation specific
+thermal mass capacity,42167,J/m2K,buiMas.heaC,42167,Zone.thermal_capacitance_per_floor_area,42167,not_run,,direct,Common prescribed mass-class input
+effective mass area factor,2.95,m2/m2,buiMas.facMas,2.95,Zone.effective_mass_area_per_floor_area,2.95,not_run,,direct,Common prescribed mass-class input
+heating setpoint,20,degC,TSetHea,20,Zone.t_set_heating,20,not_run,,direct,Modelica PI versus ISO hourly ideal control is implementation_specific
+cooling setpoint,27,degC,TSetCoo,27,Zone.t_set_cooling,27,not_run,,direct,Modelica PI versus ISO hourly ideal control is implementation_specific
+weather,USA_CO_Denver.Intl.AP.725650_TMY3,TMY3,ReaderTMY3.filNam,USA_CO_Denver.Intl.AP.725650_TMY3.mos,Location.epwfile_path,USA_CO_Denver.Intl.AP.725650_TMY3.epw,not_run,,direct,Same named Denver TMY3 weather source in native formats
