@@ -40,7 +40,7 @@ def test_case600_annual_metrics_and_manifest(pilot_output):
     assert set(formal.metric) == {"annual_heating_energy", "annual_cooling_energy"}
     assert set(formal.implementation) == {"modelica", "iso13790"}
     assert formal.loc[formal.implementation.eq("modelica"), "within_ashrae_range"].all()
-    assert len(pd.read_csv(out / "manifest.csv")) == 10
+    assert len(pd.read_csv(out / "manifest.csv")) == 7
     profile = pd.read_csv(out / "case600_feb1_load_profile.csv")
     assert len(profile) == 24 * 3 and set(profile.run_mode) == {"native", "diagnostic_modelica_solar"}
 

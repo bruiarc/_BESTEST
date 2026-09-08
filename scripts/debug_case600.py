@@ -117,7 +117,7 @@ def _annual_and_peak_comparison(metrics):
 def main():
     out=ROOT/"results/case600_debug"; out.mkdir(parents=True,exist_ok=True)
     solar=native_trace(); solar.to_csv(out/"native_solar_trace.csv",index=False)
-    raw=pd.read_csv(ROOT/"results/case600/modelica_case600_raw.csv")
+    raw=pd.read_csv(ROOT.parent / "_modelica/results/Case600/Case600_res.csv")
     time=solar.timestamp_s.to_numpy(); interp=lambda c: np.interp(time,raw.time,raw[c].astype(float))
     solar["modelica_total_zone_solar_gain_W"] = interp("zonHVAC.solGai.y")
     solar["modelica_window_solar_gain_W"] = interp("zonHVAC.win.solRadWin")

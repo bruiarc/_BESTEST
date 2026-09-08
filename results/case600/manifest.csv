@@ -1,11 +1,8 @@
 required_file
-modelica_case600_raw.csv
-case600_modelica_native_hourly.csv
 case600_iso13790_native_hourly.csv
 case600_iso13790_diagnostic_modelica_solar_hourly.csv
 case600_metrics.csv
 case600_formal_ashrae_energy.csv
 case600_feb1_load_profile.csv
-modelica_case600_variable_contract.csv
 case600ff_iso13790_diagnostic_modelica_solar_hourly.csv
 case600ff_regression_summary.csv

@@ -10,6 +10,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY = ROOT.parent / "modelica_test_2"
+MODELICA_RESULTS = ROOT.parent / "_modelica" / "results"
 sys.path.insert(0, str(LEGACY))
 
 from iso_validation.bestest_pipeline import (  # noqa: E402
@@ -24,7 +25,7 @@ STANDARD_COLUMNS = ["timestamp_s", "case", "implementation", "run_mode", "formal
 
 
 def _raw_modelica(run_missing: bool) -> pd.DataFrame:
-    cached = LEGACY / "results" / "Case600" / "Case600_res.csv"
+    cached = MODELICA_RESULTS / "Case600" / "Case600_res.csv"
     if cached.is_file():
         return pd.read_csv(cached)
     if not run_missing:
@@ -91,10 +92,11 @@ def main() -> int:
     args = parser.parse_args(); out = args.output; out.mkdir(parents=True, exist_ok=True)
 
     raw = _raw_modelica(args.run_modelica)
-    raw.to_csv(out / "modelica_case600_raw.csv", index=False)
     modelica = modelica_track(raw)
     modelica_std = _standardize(modelica, implementation="modelica", run_mode="native", formal=True, solar="modelica_resolved_solar_gain_w")
-    modelica_std.to_csv(out / "case600_modelica_native_hourly.csv", index=False)
+    modelica_archive = MODELICA_RESULTS / "Case600"
+    modelica_archive.mkdir(parents=True, exist_ok=True)
+    modelica_std.to_csv(modelica_archive / "Case600_standardized_hourly.csv", index=False)
 
     # Formal ISO run: RClib reads the Denver EPW and calculates solar itself.
     iso_native = run_rclib_native_solar(CASE_DEFINITIONS[CASE], raw)
@@ -119,20 +121,7 @@ def main() -> int:
     ).to_csv(out / "case600_feb1_load_profile.csv", index=False)
     _case600ff_regression(out)
 
-    # The Modelica variables retained below are diagnostic intermediates, not truth data.
-    variables = pd.DataFrame([
-        ("PHea.y", "hourly averaged heating power", "W", "positive heating", "native formal output", "none"),
-        ("PCoo.y", "hourly averaged cooling power", "W", "negative; multiplied by -1", "native formal output", "none"),
-        ("EHea.y", "integrated heating energy", "J", "positive", "native formal output", "not used; integrate standard hourly loads"),
-        ("ECoo.y", "integrated cooling energy", "J", "negative; multiplied by -1", "native formal output", "not used; integrate standard hourly loads"),
-        ("zonHVAC.TAir", "zone air temperature", "K", "absolute temperature", "native formal output", "converted to degC"),
-        ("weaDat.weaBus.TDryBul", "outdoor dry-bulb temperature", "K", "absolute temperature", "input trace", "converted to degC"),
-        ("zonHVAC.solGai.y", "Modelica-resolved net zone solar gain", "W", "zone gain", "diagnostic intermediate", "only diagnostic_modelica_solar ISO run"),
-        ("zonHVAC.win.solRadWin", "window solar contribution", "W", "zone gain", "diagnostic intermediate", "retained for attribution"),
-        ("zonHVAC.opa.y", "opaque-surface solar contribution", "W", "zone gain", "diagnostic intermediate", "retained for attribution"),
-    ], columns=["modelica_variable", "physical_meaning", "unit", "sign_convention", "classification", "conversion_or_use"])
-    variables.to_csv(out / "modelica_case600_variable_contract.csv", index=False)
-    pd.DataFrame({"required_file": ["modelica_case600_raw.csv", "case600_modelica_native_hourly.csv", "case600_iso13790_native_hourly.csv", "case600_iso13790_diagnostic_modelica_solar_hourly.csv", "case600_metrics.csv", "case600_formal_ashrae_energy.csv", "case600_feb1_load_profile.csv", "modelica_case600_variable_contract.csv", "case600ff_iso13790_diagnostic_modelica_solar_hourly.csv", "case600ff_regression_summary.csv"]}).to_csv(out / "manifest.csv", index=False)
+    pd.DataFrame({"required_file": ["case600_iso13790_native_hourly.csv", "case600_iso13790_diagnostic_modelica_solar_hourly.csv", "case600_metrics.csv", "case600_formal_ashrae_energy.csv", "case600_feb1_load_profile.csv", "case600ff_iso13790_diagnostic_modelica_solar_hourly.csv", "case600ff_regression_summary.csv"]}).to_csv(out / "manifest.csv", index=False)
     return 0
 
 

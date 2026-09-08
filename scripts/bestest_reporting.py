@@ -89,8 +89,12 @@ def annual_energy_table(metrics: pd.DataFrame, reference: Path, case: str, metri
     iso_run_mode, iso_label = selected_iso_mode(iso_mode)
     iso_value = float(selected.loc[metric].loc[lambda x: x.display_run == iso_label, "value"].iloc[0])
     row[iso_label] = iso_value
-    # Formal status is meaningful only for native ISO and published numeric bounds.
-    row["Python formal status"] = "PASS" if iso_mode == "native" and row["ASHRAE lower"] <= iso_value <= row["ASHRAE upper"] else "NOT FORMAL" if iso_mode != "native" else "FAIL"
+    within_range = row["ASHRAE lower"] <= iso_value <= row["ASHRAE upper"]
+    status = "PASS" if within_range else "FAIL"
+    # Controlled forcing is assessed against the same published numbers for
+    # comparison, while the suffix prevents it being mistaken for formal native
+    # ASHRAE validation.
+    row["Python range status"] = f"{status} — diagnostic" if iso_mode != "native" else status
     return pd.DataFrame([row])
 
 
@@ -115,6 +119,13 @@ def selected_hourly(hourly: pd.DataFrame, iso_mode: str) -> pd.DataFrame:
 
 
 def daily_slice(hourly: pd.DataFrame, month: int, day: int) -> pd.DataFrame:
-    """Slice standardized completed-hour data using the reference non-leap calendar."""
-    stamps = pd.Timestamp("1995-01-01") + pd.to_timedelta(hourly.timestamp_s, unit="s")
-    return hourly[(stamps.month == month) & (stamps.day == day)].assign(hour=stamps[(stamps.month == month) & (stamps.day == day)].dt.hour)
+    """Slice completed-hour data, assigning each interval to its ending day.
+
+    The 24:00 result for 1 February is stored at 2 February 00:00. Subtracting
+    one second only for calendar labelling keeps that completed interval in the
+    LBNL-reported 1 February profile without changing any model result.
+    """
+    interval_day = pd.Timestamp("1995-01-01") + pd.to_timedelta(hourly.timestamp_s - 1, unit="s")
+    mask = (interval_day.dt.month == month) & (interval_day.dt.day == day)
+    completed_hour = ((hourly.loc[mask, "timestamp_s"] / 3600 - 1) % 24 + 1).astype(int)
+    return hourly.loc[mask].assign(hour=completed_hour)
