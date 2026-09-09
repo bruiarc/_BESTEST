@@ -1,0 +1,44 @@
+Input name,Explicitly mentioned in BESTEST,Required by VDI 6007,RClib.vdi6007 implementation parameter,Numerical value / choice
+Location / weather station,X,,RCCase.epw_path; solar weather_location,"Denver TMY3 / 39.83 deg N, -104.65 deg E"
+Simulation year and calendar,X,,RCCase.year; hourly index,2023 surrogate non-leap year; 8760 h
+Timestep,X,,RCCase.timestep_hours,1 h
+Floor area,X,,RoomGeometry.floor_area_m2,48.0 m2
+Room volume,X,,RoomGeometry.volume_m3,129.6 m3
+Room height,X,,RoomGeometry.characteristic_height_m,2.7 m
+North opaque wall area,X,,OpaqueComponent.area_m2,21.6 m2
+East opaque wall area,X,,OpaqueComponent.area_m2,16.2 m2
+South opaque wall area,X,,OpaqueComponent.area_m2,9.6 m2
+West opaque wall area,X,,OpaqueComponent.area_m2,16.2 m2
+Roof area,X,,OpaqueComponent.area_m2,48.0 m2
+Floor construction area,X,,OpaqueComponent.area_m2,48.0 m2
+South window area,X,,TransparentComponent.area_m2,12.0 m2
+Surface azimuths / tilts,X,,"OpaqueComponent/TransparentComponent azimuth_deg, tilt_from_horizontal_deg",N/E/S/W=0/90/180/270 deg; walls 90 deg; roof 0 deg; floor 180 deg
+Wall U-value,X,,OpaqueComponent.u_value_w_m2k,0.53 W/(m2 K)
+Roof U-value,X,,OpaqueComponent.u_value_w_m2k,0.33 W/(m2 K)
+Floor U-value,X,,OpaqueComponent.u_value_w_m2k,0.038 W/(m2 K)
+Window U-value,X,,TransparentComponent.baseline_u_value_w_m2k,3.10 W/(m2 K)
+Window solar transmittance / g-value,X,,TransparentComponent.solar_transmittance,0.769
+Frame fraction and shading,X,,"TransparentComponent.frame_fraction, shading_factor",0.0; 1.0
+Opaque solar absorptance,X,,OpaqueComponent.absorptance,0.60
+Surface long-wave emissivity,X,X,OpaqueComponent/TransparentComponent.emissivity,0.90
+Wall material layers (outside to room),X,X,OpaqueComponent.layers_room_to_outside (reversed by adapter),9 mm wood siding; 66 mm fiberglass; 12 mm plasterboard
+Roof material layers (outside to room),X,X,OpaqueComponent.layers_room_to_outside (reversed by adapter),19 mm roof deck; 111.8 mm fiberglass; 10 mm plasterboard
+Floor material layers,X,X,OpaqueComponent.layers_room_to_outside,1.003 m massless insulation; 25 mm timber
+Lightweight capacitance constraint,X,X,construction-capacity reconciliation diagnostic,42167 J/(m2 K); effective mass area factor 2.95
+Infiltration,X,,VDI6007HourlyInput.ventilation_resistance_k_w,0.414 1/h = 0.014904 m3/s; rho=1.20 kg/m3; cp=1005 J/(kg K); R=0.05561 K/W
+Mechanical / natural ventilation,X,,hourly airflow adapter,0.0 m3/s
+Internal sensible gain,X,,VDI6007HourlyInput internal gains,"200 W, constant"
+Internal gain split,X,X,internal_convective_gain_w; internal_radiant_gain_w,0.40 / 0.60 = 80 / 120 W
+Heating setpoint,X,,run_thermostat_case heating_setpoint_schedule,"20.0 deg C, always available"
+Cooling setpoint,X,,run_thermostat_case cooling_setpoint_schedule,"27.0 deg C, always available"
+HVAC load convention,,X,OperationMode and total_hvac_load_w,"ideal unlimited load; heating positive, cooling negative"
+Heating convective / radiant fractions,,X,PreparedVDI6007Model.heating_installation (HVACFractions),0.60 / 0.40 (provisional VDI closure)
+Cooling convective / radiant fractions,,X,PreparedVDI6007Model.cooling_installation (HVACFractions),0.30 / 0.70 (provisional VDI closure)
+VDI AW classification,,X,OpaqueComponent.loading; TransparentComponent.loading,"all exterior walls, roof, floor and glazing = AW"
+VDI IW proxy area,,X,RoomGeometry.total_internal_surface_area_m2; IW OpaqueComponent,"96.0 m2 (2 x floor area; floor-plus-ceiling proxy, provisional)"
+Inside total heat-transfer coefficient,,X,prepare_model_case.inside_total_coefficient_w_m2k,"8.0 W/(m2 K), provisional"
+Outside total heat-transfer coefficient,X,X,OpaqueComponent.outside_alpha_total_w_m2k,"25.0 W/(m2 K), derived from Rse=0.04 m2 K/W"
+VDI reference temperature,,X,PreparedVDI6007Model.reference_temperature_c,"20.0 deg C, numerical reference"
+Initial VDI storage state,,X,zero_storage_state,zero history at 20.0 deg C; no tuned warm-up
+Solar transposition,,X,transpose_isotropic_sky_irradiance,isotropic sky; ground reflectance 0.20; EPW DNI/DHI/GHI
+Long-wave sky boundary,,X,ExteriorRadiationBoundary / exterior_boundary,EPW horizontal infrared radiation; reference emissivity 0.93
