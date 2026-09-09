@@ -6,6 +6,10 @@ import nbformat as nbf
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES = ("610", "620", "630", "640", "650", "660", "670", "680", "685", "695")
+DELTA_FILE = "case6xx_deltas.json"
+BASE_INPUT = "case600.json"
+MAPPING_INPUT = "case600_adapter_mapping.csv"
+REPORT_MODULE = "case6xx_reporting"
 
 SETUP = '''from pathlib import Path
 import json, sys
@@ -17,7 +21,7 @@ root = Path.cwd()
 if not (root / "scripts").is_dir(): root = root.parent
 sys.path.insert(0, str(root / "scripts"))
 from bestest_reporting import annual_energy_table, completed_hour_label, markdown_table, selected_iso_mode
-from case6xx_reporting import annual_tracks, comparison_table, peak_tracks, prescribed_changes, range_judgement
+from REPORT_MODULE import annual_tracks, comparison_table, peak_tracks, prescribed_changes, range_judgement
 case = CASE
 out = root / "results" / f"case{case}"
 reference = root / "_ref" / "BESTEST_LBNL_all_cases_reference.md"
@@ -43,13 +47,13 @@ fig,ax=plt.subplots(figsize=(7,3.4)); ax.bar(peaks["Track"],peaks["{column}"],co
 ax.set(title=f"Case {{case}}: {title}",ylabel="kW",ylim=(0,peaks["{column}"].max()*1.2 if peaks["{column}"].max() else 1)); ax.grid(axis="y",alpha=.25); fig.tight_layout(); plt.show()'''
 
 def build(case, index):
-    changes = json.loads((ROOT / "inputs" / "case6xx_deltas.json").read_text())["cases"][case]["changes"]
+    changes = json.loads((ROOT / "inputs" / DELTA_FILE).read_text())["cases"][case]["changes"]
     details = "\n".join(f"- {change}" for change in changes)
     cells = [
         cell("md", f"# Case {case} BESTEST validation\n\nNative ISO is the formal ASHRAE 140 result. `modelica_solar` is a controlled-forcing comparative run and is not a formal result."),
-        cell("code", f'CASE="{case}"\n' + SETUP),
+        cell("code", f'CASE="{case}"\n' + SETUP.replace("REPORT_MODULE", REPORT_MODULE)),
         cell("md", f"## 1. Case definition\n\nCase {case} inherits Case 600 with these explicit BESTEST changes:\n\n{details}\n\nWeather: Denver TMY3; non-leap calendar; simulation/output timestep: 1 h."),
-        cell("code", "display(prescribed_changes(case)); base=json.loads((root/'inputs'/'case600.json').read_text()); display(pd.DataFrame([{\"Geometry\":f\"{base['geometry']['floor_area_m2']} m² floor; {base['geometry']['volume_m3']} m³ volume\",\"Construction\":base['constructions']['mass_class'],\"Weather\":base['weather']['identifier'],\"Timestep\":\"1 h\"}])); display(pd.read_csv(root/'inputs'/'case600_adapter_mapping.csv')[['quantity','ashrae_value','ashrae_unit','modelica_parameter','iso_parameter','mapping_type']])"),
+        cell("code", f"display(prescribed_changes(case)); base=json.loads((root/'inputs'/'{BASE_INPUT}').read_text()); display(pd.DataFrame([{{\"Geometry\":f\"{{base['geometry']['floor_area_m2']}} m² floor; {{base['geometry']['volume_m3']}} m³ volume\",\"Construction\":base['constructions']['mass_class'],\"Weather\":base['weather']['identifier'],\"Timestep\":\"1 h\"}}])); display(pd.read_csv(root/'inputs'/'{MAPPING_INPUT}')[['quantity','ashrae_value','ashrae_unit','modelica_parameter','iso_parameter','mapping_type']])"),
         cell("md", "## 2. Annual heating and cooling\n\nThree computed tracks, MWh."), cell("code", "display(annual_tracks(metrics))"),
         cell("md", "## 3. Annual energy validation outcome\n\nFormal annual-energy judgement for native ISO only."), cell("code", "display(range_judgement(metrics,references,case))"),
         cell("md", "## 4. Annual heating figure\n\nAnnual heating energy with published ASHRAE limits."), cell("code", annual_plot("annual_heating_energy")),

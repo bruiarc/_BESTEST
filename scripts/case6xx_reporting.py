@@ -25,8 +25,8 @@ def _value(track: pd.DataFrame, metric: str) -> float:
 def annual_tracks(metrics: pd.DataFrame) -> pd.DataFrame:
     """Three-track annual results retained in every 6XX notebook."""
     tracks = (
-        ("Native ISO", _track(metrics, "iso13790", "native")),
-        ("ISO + Modelica solar", _track(metrics, "iso13790", "diagnostic_modelica_solar")),
+        ("RClib-ISO native solar", _track(metrics, "iso13790", "native")),
+        ("RClib-ISO + Modelica-resolved solar", _track(metrics, "iso13790", "diagnostic_modelica_solar")),
         ("Modelica native", _track(metrics, "modelica", "native")),
     )
     return pd.DataFrame([
@@ -58,8 +58,8 @@ def range_judgement(metrics: pd.DataFrame, reference: pd.DataFrame, case: str) -
 def peak_tracks(metrics: pd.DataFrame, completed_hour_label) -> pd.DataFrame:
     rows = []
     for label, implementation, run_mode in (
-        ("Modelica native", "modelica", "native"), ("Native ISO", "iso13790", "native"),
-        ("ISO + Modelica solar", "iso13790", "diagnostic_modelica_solar"),
+        ("Modelica native", "modelica", "native"), ("RClib-ISO native solar", "iso13790", "native"),
+        ("RClib-ISO + Modelica-resolved solar", "iso13790", "diagnostic_modelica_solar"),
     ):
         track = _track(metrics, implementation, run_mode)
         heat, cool = track.loc["peak_heating_load"], track.loc["peak_cooling_load"]
@@ -83,9 +83,9 @@ def comparison_table(metrics: pd.DataFrame, comparison: str) -> pd.DataFrame:
         ("peak_cooling_load", "Peak cooling", "kW"),
     ):
         if comparison == "controlled_modelica":
-            base, other, base_label, other_label = _value(modelica, metric), _value(controlled, metric), "Modelica", "ISO + Modelica solar"
+            base, other, base_label, other_label = _value(modelica, metric), _value(controlled, metric), "Modelica", "RClib-ISO + Modelica-resolved solar"
         elif comparison == "solar_effect":
-            base, other, base_label, other_label = _value(native, metric), _value(controlled, metric), "Native ISO", "ISO + Modelica solar"
+            base, other, base_label, other_label = _value(native, metric), _value(controlled, metric), "RClib-ISO native solar", "RClib-ISO + Modelica-resolved solar"
         else:
             raise ValueError(comparison)
         difference = other - base

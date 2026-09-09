@@ -13,8 +13,8 @@ import pandas as pd
 
 
 ISO_MODES = {
-    "modelica_solar": ("diagnostic_modelica_solar", "Python ISO 13790 + Modelica-resolved solar"),
-    "native": ("native", "Python ISO 13790 native solar"),
+    "modelica_solar": ("diagnostic_modelica_solar", "RClib-ISO + Modelica-resolved solar"),
+    "native": ("native", "RClib-ISO native solar"),
 }
 MODELICA_LABEL = "Modelica native"
 

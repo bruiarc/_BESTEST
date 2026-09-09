@@ -19,14 +19,14 @@ def test_lbnl_report_helpers_switch_iso_track_without_hard_coded_results():
     assert selected_iso_mode("modelica_solar")[0] == "diagnostic_modelica_solar"
     assert controlled["Python range status"].iloc[0] == "PASS — diagnostic"
     assert native["Python range status"].iloc[0] == "FAIL"
-    assert controlled["Python ISO 13790 + Modelica-resolved solar"].iloc[0] > 5
-    assert native["Python ISO 13790 native solar"].iloc[0] < 2
+    assert controlled["RClib-ISO + Modelica-resolved solar"].iloc[0] > 5
+    assert native["RClib-ISO native solar"].iloc[0] < 2
     peak = peak_table(metrics, reference, "600", "peak_cooling_load", "modelica_solar")
     assert "22-Jan:14" in peak["Modelica native"].iloc[0]
 
 
 def test_pilot_notebook_has_only_current_lbnl_conditioned_categories():
-    notebook = json.loads((ROOT / "notebooks/02_case600_pilot_validation.ipynb").read_text())
+    notebook = json.loads((ROOT / "notebooks/01_case600_pilot_validation.ipynb").read_text())
     headings = ["".join(cell["source"]) for cell in notebook["cells"] if cell["cell_type"] == "markdown"]
     text = "\n".join(headings)
     for heading in ("Annual heating energy", "Annual cooling energy", "Peak heating load", "Peak cooling load", "Daily load profile"):

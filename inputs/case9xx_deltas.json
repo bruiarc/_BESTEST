@@ -1,0 +1,15 @@
+{
+  "base_case": "900",
+  "authority": "Buildings.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx",
+  "cases": {
+    "900": {"changes": []},
+    "910": {"changes": ["south-window shading factor: 0.84"]},
+    "920": {"changes": ["window distribution: west 6 m2; east 6 m2; no south window"]},
+    "930": {"changes": ["window distribution: west 6 m2; east 6 m2; no south window", "window shading factor: 0.846 × 0.915"]},
+    "940": {"changes": ["heating schedule: 10 C 23:00–07:00; ramp 07:00–08:00; 20 C 08:00–23:00"]},
+    "950": {"changes": ["heating off", "cooling available 07:00–18:00 at 27 C", "night ventilation: 1409 m3/h 18:00–07:00"]},
+    "980": {"changes": ["wall U-value: 0.15 W/(m2 K)", "roof U-value: 0.10 W/(m2 K)"]},
+    "985": {"changes": ["heating setpoint: 19.9 C", "cooling setpoint: 20.1 C"]},
+    "995": {"changes": ["wall U-value: 0.15 W/(m2 K)", "roof U-value: 0.10 W/(m2 K)", "heating setpoint: 19.9 C", "cooling setpoint: 20.1 C"]}
+  }
+}
