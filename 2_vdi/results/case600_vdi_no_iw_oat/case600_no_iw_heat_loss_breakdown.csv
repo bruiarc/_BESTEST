@@ -1,0 +1,10 @@
+topology,airflow_ach,oat_source,solar_source,pathway,annual_winter_heat_loss_MWh,formulation,source_parameter
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,walls,2.9732885882354463,"heating-season sum max(0, UA_component*(Tair-Teq_component))",component U*A and VDI equivalent boundary temperature
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,roof,1.395527334375378,"heating-season sum max(0, UA_component*(Tair-Teq_component))",component U*A and VDI equivalent boundary temperature
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,floor,0.16108281006492461,"heating-season sum max(0, UA_component*(Tair-Teq_component))",component U*A and VDI equivalent boundary temperature
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,windows,3.2813081607440022,"heating-season sum max(0, UA_component*(Tair-Teq_component))",component U*A and VDI equivalent boundary temperature
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,infiltration,1.4395519453636296,"heating-season sum max(0, rho*cp*Vdot*(Tair-Tsupply))",0.414 ACH over 129.6 m3
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,exterior LW contribution on walls,0.2737272488694565,"heating-season sum max(0, UA*(TDryBul-Teq_longwave_only))","EPW horizontal infrared, emissivity=0.90, reference emissivity=0.93"
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,exterior LW contribution on roof,0.1269595528990695,"heating-season sum max(0, UA*(TDryBul-Teq_longwave_only))","EPW horizontal infrared, emissivity=0.90, reference emissivity=0.93"
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,exterior LW contribution on floor,0.015004333011959048,"heating-season sum max(0, UA*(TDryBul-Teq_longwave_only))","EPW horizontal infrared, emissivity=0.90, reference emissivity=0.93"
+AW-only no IW,0.414,VDI EPW,Modelica aggregate controlled solar,exterior LW contribution on windows,0.30208418351559885,"heating-season sum max(0, UA*(TDryBul-Teq_longwave_only))","EPW horizontal infrared, emissivity=0.90, reference emissivity=0.93"

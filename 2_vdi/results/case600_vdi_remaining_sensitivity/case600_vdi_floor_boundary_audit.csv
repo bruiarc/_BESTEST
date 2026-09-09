@@ -1,0 +1,2 @@
+construction,boundary_condition,surface_films,thermal_storage,candidate_VDI_classification,BESTEST_Modelica_treatment,status
+1.003 m massless insulation proxy + 25 mm timber,Outdoors in current VDI input,Rsi implicit in U target; Rse=0.04 used by adapter reduction,timber only; insulation rho*cp=1e-18,"AW, but boundary must represent BESTEST adiabatic floor","UFlo=0.038, AFlo=48, b=1 to outdoor node",model-form/boundary representation requires care; do not change for fit
