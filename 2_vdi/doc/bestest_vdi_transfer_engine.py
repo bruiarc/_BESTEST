@@ -20,7 +20,10 @@ sys.path.insert(0, str(DEV / "RC_br"))
 
 from RClib.vdi6007 import RCCase
 from RClib.vdi6007.case_adapter import VDIAdapterDefaults
-from RClib.vdi6007.no_iw import run_thermostat_case_no_iw
+from RClib.vdi6007.no_iw import (
+    prepare_model_case_no_iw_from_prepared,
+    run_thermostat_case_no_iw,
+)
 
 AREA, VOLUME, RHO, CP = 48.0, 129.6, 1.20, 1005.0
 INDEX = pd.date_range("2023-01-01", periods=8760, freq="h")
@@ -183,12 +186,64 @@ def layer_audit(defaults: dict) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def construction_traceability(defaults: dict) -> pd.DataFrame:
+    """Summarize the primary Case 900 layers and their VDI AW reduction."""
+    layers = layer_audit(defaults)
+    with tempfile.TemporaryDirectory(prefix="bestest_900_trace_") as td:
+        default_path = Path(td) / "defaults.json"
+        default_path.write_text(json.dumps(defaults))
+        rc = RCCase(
+            year=2023,
+            loc_json=VDI / "inputs/case600_location.json",
+            geo_json=VDI / "inputs/case600_geometry.json",
+            default_json=default_path,
+            epw_path=WEATHER,
+            occupancy_profile_csv=VDI / "inputs/case600_occupancy.csv",
+            adapter_defaults=VDIAdapterDefaults(
+                inside_total_coefficient_w_m2k=8.0,
+                heating_convective_fraction=1.0,
+                cooling_convective_fraction=1.0,
+                internal_gain_convective_fraction=0.5,
+            ),
+            use_construction_properties=True,
+        )
+        outside_r = (
+            float(defaults["external_surface_resistance"])
+            / rc.adapted.prepared_model.geometry.aw_surface_area_m2
+        )
+        prepared = prepare_model_case_no_iw_from_prepared(
+            rc.adapted.prepared_model,
+            inside_total_coefficient_w_m2k=8.0,
+            outside_surface_resistance_k_w=outside_r,
+        )
+    layer_names = {
+        name.rsplit(" ", 1)[-1]: " + ".join(layer["name"] for layer in chain)
+        for name, chain in defaults["constructions"].items()
+    }
+    raw_capacity = float(layers.total_C_J_K.sum())
+    values = np.asarray([
+        raw_capacity,
+        prepared.aw_aggregate.resistance_k_w,
+        prepared.aw_aggregate.capacitance_j_k,
+    ])
+    assert np.isfinite(values).all() and (values > 0).all()
+    return pd.DataFrame([{
+        "construction_convention": defaults["material_convention"]["primary"],
+        "wall_layers": layer_names["wall"],
+        "floor_layers": layer_names["floor"],
+        "roof_layers": layer_names["roof"],
+        "raw_layer_capacity_J_K": raw_capacity,
+        "VDI_reduced_AW_resistance_K_W": prepared.aw_aggregate.resistance_k_w,
+        "VDI_reduced_AW_capacitance_J_K": prepared.aw_aggregate.capacitance_j_k,
+    }])
+
+
 def case900_input_audit() -> pd.DataFrame:
     return pd.DataFrame([
       ("geometry","48 m2; 129.6 m3; same surfaces","unchanged from Case 600","inputs/case900.json"),
-      ("construction layers","Case600 identities; cp x 5.405964196971026","comparator-derived","capacity-constrained proxy"),
+      ("construction layers","ASHRAE 140 Case 900 wall/floor; Case 600 roof","benchmark-prescribed change","ASHRAE 140 Table 7-27; detailed Modelica records"),
       ("prescribed U-values","wall .53; roof .33; floor .038 W/m2K","unchanged from Case 600","inputs/case900.json"),
-      ("thermal mass/capacitance","heavyweight; 14.772 MJ/K","benchmark-prescribed change","inputs/case900.json"),
+      ("thermal mass/capacitance","layer-derived by VDI dynamic reduction","benchmark-prescribed change","verified physical layer chains"),
       ("effective mass area","2.43 x 48 = 116.64 m2; recorded, not applied","unresolved provenance","no direct no-IW VDI mapping"),
       ("glazing","12 m2 south; U 3.1; g .769","unchanged from Case 600","inputs/case900.json"),
       ("infiltration/ventilation","0.414 1/h; no mechanical ventilation","unchanged from Case 600","repository comparator; canonical provenance open"),
@@ -201,9 +256,9 @@ def case900_input_audit() -> pd.DataFrame:
 
 
 def checklist(case="900") -> pd.DataFrame:
-    settings = ["no-IW","F36/F52 variants","layer-controlled capacity proxy","total h_i=8 W/m2K",
+    settings = ["no-IW","F36/F52 variants","ASHRAE 140 layers; prescribed U-values retained","total h_i=8 W/m2K",
                 "harmonised","50% air / 50% AW","0.414 1/h","benchmark geometry/schedules/controls"]
-    sources = ["Case600 candidate","Case600 candidate","Case900 aggregate mass + implementation proxy","VDI-side convention",
+    sources = ["Case600 candidate","Case600 candidate","ASHRAE 140 Table 7-27 + detailed Modelica records","VDI-side convention",
                "Case600 candidate","comparator projection","repository comparator; canonical source open","canonical case record"]
     categories=["IW topology","Solar/source allocation","Envelope convention","Inside heat-transfer treatment",
                 "Exterior long-wave treatment","Internal-gain allocation","Airflow/infiltration provenance","Geometry, schedules and controls"]
@@ -225,9 +280,10 @@ def _distance(value, bounds):
 
 
 def run_case900(output: Path | None = None):
-    output = output or VDI/"results/case900_vdi_transfer"; output.mkdir(parents=True,exist_ok=True)
+    output = output or VDI/"results/case900_vdi_transfer_ashrae140_layers"; output.mkdir(parents=True,exist_ok=True)
     defaults=_configure_defaults("900"); layers=layer_audit(defaults)
-    assert math.isclose(layers.total_C_J_K.sum(),14772000.0,rel_tol=0,abs_tol=1e-6)
+    traceability=construction_traceability(defaults)
+    assert math.isclose(layers.total_C_J_K.sum(),15479951.712,rel_tol=0,abs_tol=1e-6)
     rows=[]; hourly=[]
     for cfg in CONFIGURATIONS:
         sim,solar,_=simulate_case("900",cfg); row,load=_metric_row("900",cfg,sim,solar)
@@ -243,17 +299,23 @@ def run_case900(output: Path | None = None):
                            native_transmitted_solar_W=s,HVAC_load_W=q,
                            heating_load_W=max(q,0),cooling_load_W=max(-q,0))
                       for t,s,q in zip(INDEX,solar,load))
-    summary=pd.DataFrame(rows); hourly=pd.DataFrame(hourly)
+    summary=pd.DataFrame(rows)
+    summary=summary[["configuration","heating_MWh","cooling_MWh",
+        "heating_in_range","cooling_in_range","both_in_range","D_MWh_norm",
+        "maximum_balance_residual_W"]]
+    hourly=pd.DataFrame(hourly)
     assert np.isfinite(summary.select_dtypes("number")).all().all()
     assert summary.maximum_balance_residual_W.max()<=1e-9
     summary.to_csv(output/"case900_vdi_transfer_summary.csv",index=False)
     hourly.to_csv(output/"case900_vdi_transfer_hourly.csv",index=False)
     case900_input_audit().to_csv(output/"case900_input_translation_audit.csv",index=False)
     layers.to_csv(output/"case900_layer_capacity_audit.csv",index=False)
+    traceability.to_csv(output/"case900_construction_traceability.csv",index=False)
     checklist().to_csv(output/"case900_eight_point_checklist.csv",index=False)
     pd.DataFrame({"required_file":["case900_vdi_transfer_summary.csv","case900_vdi_transfer_hourly.csv",
-      "case900_input_translation_audit.csv","case900_layer_capacity_audit.csv","case900_eight_point_checklist.csv"]}).to_csv(output/"manifest.csv",index=False)
-    return summary,hourly,layers
+      "case900_input_translation_audit.csv","case900_layer_capacity_audit.csv",
+      "case900_construction_traceability.csv","case900_eight_point_checklist.csv"]}).to_csv(output/"manifest.csv",index=False)
+    return summary,hourly,layers,traceability
 
 
 def verify_case600_replay(tolerance=1e-9):

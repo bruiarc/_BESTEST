@@ -1,0 +1,13 @@
+item,current_setting,classification,source_provenance
+geometry,48 m2; 129.6 m3; same surfaces,unchanged from Case 600,inputs/case900.json
+construction layers,ASHRAE 140 Case 900 wall/floor; Case 600 roof,benchmark-prescribed change,ASHRAE 140 Table 7-27; detailed Modelica records
+prescribed U-values,wall .53; roof .33; floor .038 W/m2K,unchanged from Case 600,inputs/case900.json
+thermal mass/capacitance,layer-derived by VDI dynamic reduction,benchmark-prescribed change,verified physical layer chains
+effective mass area,"2.43 x 48 = 116.64 m2; recorded, not applied",unresolved provenance,no direct no-IW VDI mapping
+glazing,12 m2 south; U 3.1; g .769,unchanged from Case 600,inputs/case900.json
+infiltration/ventilation,0.414 1/h; no mechanical ventilation,unchanged from Case 600,repository comparator; canonical provenance open
+internal gains,200 W; 50% air/50% AW,implementation assumption,comparator-consistent no-IW projection
+solar properties,native VDI; absorptance .6; g .769,unchanged from Case 600,candidate implementation
+setpoints/control,20/27 C; ideal air HVAC,unchanged from Case 600,benchmark/comparator
+schedules,constant annual availability,unchanged from Case 600,benchmark
+exterior boundary,long-wave harmonised to outdoor dry bulb,implementation assumption,Case600 carry-forward

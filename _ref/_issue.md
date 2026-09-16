@@ -1,5 +1,3 @@
-
-
 1. **IW topology**
 
    * [ ] Is an internal-wall branch included or excluded?
@@ -34,14 +32,12 @@
 
    This is where a current **50/50** split can be recorded. Again, the checklist should ask *what the split is and why*, rather than assume that 50/50 is universally correct.
 
-7. **Airflow / infiltration**
-
-   * [ ] What airflow or infiltration convention is used, and what is its original source?
+7. **Airflow / infiltration**    
+   * [ ] What airflow or infiltration convention is used, and what is its original source (whether it has been converted as per the altitude)?
    * [ ] Is the value a direct benchmark input, a conversion from another airflow quantity, or a modelling assumption?
-
-   So \(0.414\,\mathrm{h^{-1}}\) would be the present value to document, but the important question is its **provenance**, especially because it may have been derived rather than directly prescribed.
 
 8. **Geometry, schedules and controls**
 
-   * [ ] Which geometry, operating schedules, setpoints and HVAC-control assumptions are held fixed across comparisons?
-   * [ ] Are these quantities direct benchmark inputs, comparator conventions, or additional implementation assumptions?
+   * [ ] Which geometry, operating schedules, setpoints and HVAC-control assumptions are of fidelity to what has been proposed (e.g., list HVAC schedules that are finally used, as some case may be tricky where default minimal value of mechanical ventilation may be triggered whereas we have our own stipulation or interpretation regarding how one building is actually operated)?
+  
+   * [ ] 2 times of ['FLOOR_AREA'] is a default setting as fallback values, and I would like to know if it is used (which is dangerous as such value should be easily obtained but we use juvenile fallback)

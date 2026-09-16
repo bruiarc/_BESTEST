@@ -6,25 +6,58 @@
   "infiltration_ach": 0.414, "window_opening_ach": 0.0, "ach_vent": 0.0,
   "fresh_air_lps": 0.0, "ventilation_efficiency": 0.0, "hr_eff": 0.0,
   "max_occupancy": 0.0, "gain_per_person": 0.0, "appliance_gains": 0.0, "lighting_load": 0.0,
-  "vdi_mass_proxy": {
-    "status": "comparator-derived implementation assumption; not authoritative BESTEST layers",
-    "target_capacity_J_K": 14772000.0,
-    "unscaled_layer_capacity_J_K": 2732537.52,
-    "specific_heat_scale": 5.405964196971026,
-    "effective_mass_area_factor": "recorded only; no direct no-IW VDI mapping"
+  "material_convention": {
+    "primary": "ashrae140_layers",
+    "dynamic_reduction": "ASHRAE 140-2023 Table 7-27 wall/floor layers and unchanged Case 600 roof",
+    "steady_state_transmission": "prescribed component U-values retained separately by the adapter",
+    "massless_floor_insulation_encoding": "ASHRAE density=0 and cp=0 encoded as 1e-9 because MaterialLayer requires strictly positive values; resulting capacity is numerically zero",
+    "provenance": [
+      "_reference/ashrae140.pdf, Table 7-27",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/ExteriorWallCase900.mo",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/FloorCase900.mo",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mo roof record"
+    ]
+  },
+  "diagnostic_construction_conventions": {
+    "scaled_cp_proxy": {
+      "status": "diagnostic only; superseded as the primary Case 900 material convention",
+      "target_capacity_J_K": 14772000.0,
+      "unscaled_layer_capacity_J_K": 2732537.52,
+      "specific_heat_scale": 5.405964196971026,
+      "effective_mass_area_factor": "recorded only; no direct no-IW VDI mapping",
+      "constructions": {
+        "case900 wall": [
+          {"name":"wood siding [scaled-cp diagnostic]","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":4865.367777273923,"density_kg_m3":530.0},
+          {"name":"fiberglass quilt [scaled-cp diagnostic]","thickness_m":0.066,"conductivity_w_mk":0.040,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":12.0},
+          {"name":"plasterboard [scaled-cp diagnostic]","thickness_m":0.012,"conductivity_w_mk":0.160,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":950.0}
+        ],
+        "case900 roof": [
+          {"name":"roof deck [scaled-cp diagnostic]","thickness_m":0.019,"conductivity_w_mk":0.140,"specific_heat_j_kgk":4865.367777273923,"density_kg_m3":530.0},
+          {"name":"fiberglass quilt [scaled-cp diagnostic]","thickness_m":0.1118,"conductivity_w_mk":0.040,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":12.0},
+          {"name":"plasterboard [scaled-cp diagnostic]","thickness_m":0.010,"conductivity_w_mk":0.160,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":950.0}
+        ],
+        "case900 floor": [
+          {"name":"massless insulation proxy [scaled-cp diagnostic]","thickness_m":1.003,"conductivity_w_mk":0.040,"specific_heat_j_kgk":5.405964196971026e-9,"density_kg_m3":1e-9},
+          {"name":"timber flooring [scaled-cp diagnostic]","thickness_m":0.025,"conductivity_w_mk":0.140,"specific_heat_j_kgk":6487.157036365232,"density_kg_m3":650.0}
+        ]
+      }
+    }
   },
   "constructions": {
     "case900 wall": [
-      {"name":"wood siding [Case900 capacity proxy]","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":4865.367777273923,"density_kg_m3":530.0},
-      {"name":"fiberglass quilt [Case900 capacity proxy]","thickness_m":0.066,"conductivity_w_mk":0.040,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":12.0},
-      {"name":"plasterboard [Case900 capacity proxy]","thickness_m":0.012,"conductivity_w_mk":0.160,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":950.0}],
+      {"name":"wood siding","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"foam insulation","thickness_m":0.0615,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1400.0,"density_kg_m3":10.0},
+      {"name":"concrete block","thickness_m":0.100,"conductivity_w_mk":0.510,"specific_heat_j_kgk":1000.0,"density_kg_m3":1400.0}
+    ],
     "case900 roof": [
-      {"name":"roof deck [Case900 capacity proxy]","thickness_m":0.019,"conductivity_w_mk":0.140,"specific_heat_j_kgk":4865.367777273923,"density_kg_m3":530.0},
-      {"name":"fiberglass quilt [Case900 capacity proxy]","thickness_m":0.1118,"conductivity_w_mk":0.040,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":12.0},
-      {"name":"plasterboard [Case900 capacity proxy]","thickness_m":0.010,"conductivity_w_mk":0.160,"specific_heat_j_kgk":4541.009925455662,"density_kg_m3":950.0}],
+      {"name":"roof deck","thickness_m":0.019,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"fiberglass quilt","thickness_m":0.1118,"conductivity_w_mk":0.040,"specific_heat_j_kgk":840.0,"density_kg_m3":12.0},
+      {"name":"plasterboard","thickness_m":0.010,"conductivity_w_mk":0.160,"specific_heat_j_kgk":840.0,"density_kg_m3":950.0}
+    ],
     "case900 floor": [
-      {"name":"massless insulation proxy [Case900 capacity proxy]","thickness_m":1.003,"conductivity_w_mk":0.040,"specific_heat_j_kgk":5.405964196971026e-9,"density_kg_m3":1e-9},
-      {"name":"timber flooring [Case900 capacity proxy]","thickness_m":0.025,"conductivity_w_mk":0.140,"specific_heat_j_kgk":6487.157036365232,"density_kg_m3":650.0}]
+      {"name":"massless insulation [ASHRAE rho=0 cp=0; positive numerical encoding]","thickness_m":1.007,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1e-9,"density_kg_m3":1e-9},
+      {"name":"concrete slab","thickness_m":0.080,"conductivity_w_mk":1.130,"specific_heat_j_kgk":1000.0,"density_kg_m3":1400.0}
+    ]
   },
   "window_elements": [{"name":"south windows","area_m2":12.0,"azimuth_deg":180.0,"tilt_deg":90.0,"boundary_condition":"Outdoors","parent_surface":"south wall","u_value":3.1,"g_gl":0.769,"FF":0.0,"F_sh_ob":1.0,"F_sh_gl":1.0}],
   "opaque_elements": [
@@ -33,5 +66,6 @@
     {"name":"south wall","area_m2":9.6,"azimuth_deg":180.0,"tilt_deg":90.0,"boundary_condition":"Outdoors","construction":"case900 wall","u_value":0.53,"alpha_s":0.6},
     {"name":"west wall","area_m2":16.2,"azimuth_deg":270.0,"tilt_deg":90.0,"boundary_condition":"Outdoors","construction":"case900 wall","u_value":0.53,"alpha_s":0.6},
     {"name":"roof","area_m2":48.0,"azimuth_deg":0.0,"tilt_deg":0.0,"boundary_condition":"Outdoors","construction":"case900 roof","u_value":0.33,"alpha_s":0.6},
-    {"name":"floor","area_m2":48.0,"azimuth_deg":0.0,"tilt_deg":180.0,"boundary_condition":"Outdoors","construction":"case900 floor","u_value":0.038,"alpha_s":0.6}]
+    {"name":"floor","area_m2":48.0,"azimuth_deg":0.0,"tilt_deg":180.0,"boundary_condition":"Outdoors","construction":"case900 floor","u_value":0.038,"alpha_s":0.6}
+  ]
 }
