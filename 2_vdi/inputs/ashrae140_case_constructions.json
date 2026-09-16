@@ -1,0 +1,99 @@
+{
+  "schema": "ASHRAE 140 BESTEST construction provenance for the VDI sequence",
+  "storage_order": "outside_to_inside; RClib.vdi6007.case_adapter reverses to room-side-to-outside",
+  "sources": {
+    "case600": [
+      "_reference/ashrae140.pdf, ASHRAE 140-2023 Table 7-2",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mo"
+    ],
+    "case680": [
+      "_reference/ashrae140.pdf, ASHRAE 140-2023 Table 7-25",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/ExteriorWallCase680.mo",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/RoofCase680.mo"
+    ],
+    "case900": [
+      "_reference/ashrae140.pdf, ASHRAE 140-2023 Table 7-27",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/ExteriorWallCase900.mo",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/FloorCase900.mo"
+    ],
+    "case980": [
+      "_reference/ashrae140.pdf, ASHRAE 140-2023 Table 7-31",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/ExteriorWallCase980.mo",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/RoofCase680.mo"
+    ],
+    "case660": [
+      "_reference/ashrae140.pdf, ASHRAE 140-2023 Table 7-17",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/Glass660.mo",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/Win660.mo"
+    ],
+    "case670": [
+      "_reference/ashrae140.pdf, ASHRAE 140-2023 Table 7-21",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/Glass600.mo",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Data/Win670.mo"
+    ]
+  },
+  "constructions": {
+    "case600 wall": [
+      {"name":"wood siding","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"fiberglass quilt","thickness_m":0.066,"conductivity_w_mk":0.040,"specific_heat_j_kgk":840.0,"density_kg_m3":12.0},
+      {"name":"plasterboard","thickness_m":0.012,"conductivity_w_mk":0.160,"specific_heat_j_kgk":840.0,"density_kg_m3":950.0}
+    ],
+    "case600 roof": [
+      {"name":"roof deck","thickness_m":0.019,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"fiberglass quilt","thickness_m":0.1118,"conductivity_w_mk":0.040,"specific_heat_j_kgk":840.0,"density_kg_m3":12.0},
+      {"name":"plasterboard","thickness_m":0.010,"conductivity_w_mk":0.160,"specific_heat_j_kgk":840.0,"density_kg_m3":950.0}
+    ],
+    "case600 floor": [
+      {"name":"underfloor insulation [ASHRAE minimum-capacity encoding]","thickness_m":1.003,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1e-9,"density_kg_m3":1e-9},
+      {"name":"timber flooring","thickness_m":0.025,"conductivity_w_mk":0.140,"specific_heat_j_kgk":1200.0,"density_kg_m3":650.0}
+    ],
+    "case680 wall": [
+      {"name":"wood siding","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"foam insulation","thickness_m":0.250,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1400.0,"density_kg_m3":10.0},
+      {"name":"plasterboard","thickness_m":0.012,"conductivity_w_mk":0.160,"specific_heat_j_kgk":840.0,"density_kg_m3":950.0}
+    ],
+    "case680 roof": [
+      {"name":"roof deck","thickness_m":0.019,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"fiberglass quilt","thickness_m":0.400,"conductivity_w_mk":0.040,"specific_heat_j_kgk":840.0,"density_kg_m3":12.0},
+      {"name":"plasterboard","thickness_m":0.010,"conductivity_w_mk":0.160,"specific_heat_j_kgk":840.0,"density_kg_m3":950.0}
+    ],
+    "case900 wall": [
+      {"name":"wood siding","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"foam insulation","thickness_m":0.0615,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1400.0,"density_kg_m3":10.0},
+      {"name":"concrete block","thickness_m":0.100,"conductivity_w_mk":0.510,"specific_heat_j_kgk":1000.0,"density_kg_m3":1400.0}
+    ],
+    "case900 floor": [
+      {"name":"underfloor insulation [ASHRAE minimum-capacity encoding]","thickness_m":1.007,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1e-9,"density_kg_m3":1e-9},
+      {"name":"concrete slab","thickness_m":0.080,"conductivity_w_mk":1.130,"specific_heat_j_kgk":1000.0,"density_kg_m3":1400.0}
+    ],
+    "case980 wall": [
+      {"name":"wood siding","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
+      {"name":"foam insulation","thickness_m":0.2452,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1400.0,"density_kg_m3":10.0},
+      {"name":"concrete block","thickness_m":0.100,"conductivity_w_mk":0.510,"specific_heat_j_kgk":1000.0,"density_kg_m3":1400.0}
+    ]
+  },
+  "glazing_systems": {
+    "case600": {
+      "description": "two 3.048 mm clear panes with 12 mm air gap",
+      "adapter_u_value_w_m2k": 3.1,
+      "adapter_g_value": 0.769,
+      "ashrae_table": "7-10"
+    },
+    "case660": {
+      "description": "3.180 mm low-e outer pane, 12 mm argon gap, 3.048 mm clear inner pane",
+      "vdi_whole_window_u_value_w_m2k": 1.19,
+      "iso_comparator_u_value_w_m2k": 1.45,
+      "adapter_g_value": 0.44,
+      "ashrae_table": "7-17",
+      "whole_window_u_source": "ASHRAE 140-2023 Informative Table 7-18"
+    },
+    "case670": {
+      "description": "single 3.048 mm clear pane",
+      "vdi_whole_window_u_value_w_m2k": 5.16,
+      "iso_comparator_u_value_w_m2k": 7.8,
+      "adapter_g_value": 0.864,
+      "ashrae_table": "7-21",
+      "whole_window_u_source": "ASHRAE 140-2023 Informative Table 7-22"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+case,category,verification_question,current_setting,source_provenance
+600,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+600,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+600,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+600,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+600,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+600,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+600,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+600,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+610,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+610,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+610,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+610,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+610,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+610,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+610,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+610,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+620,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+620,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+620,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+620,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+620,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+620,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+620,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+620,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+630,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+630,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+630,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+630,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+630,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+630,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+630,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+630,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+640,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+640,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+640,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+640,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+640,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+640,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+640,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+640,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+650,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+650,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+650,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+650,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+650,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+650,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+650,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+650,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+660,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+660,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+660,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+660,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+660,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+660,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+660,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+660,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+670,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+670,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+670,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+670,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+670,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+670,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+670,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+670,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+680,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+680,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+680,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+680,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+680,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+680,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+680,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+680,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+685,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+685,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+685,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+685,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+685,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+685,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+685,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+685,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+695,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+695,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+695,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+695,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+695,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+695,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+695,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+695,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+900,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+900,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+900,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+900,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+900,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+900,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+900,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+900,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+910,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+910,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+910,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+910,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+910,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+910,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+910,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+910,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+920,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+920,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+920,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+920,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+920,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+920,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+920,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+920,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+930,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+930,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+930,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+930,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+930,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+930,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+930,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+930,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+940,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+940,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+940,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+940,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+940,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+940,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+940,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+940,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+950,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+950,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+950,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+950,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+950,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+950,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+950,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+950,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+980,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+980,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+980,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+980,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+980,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+980,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+980,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+980,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+985,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+985,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+985,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+985,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+985,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+985,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+985,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+985,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record
+995,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
+995,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
+995,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",ASHRAE 140 layers; prescribed U-values retained,ASHRAE 140 Table 7-27 + detailed Modelica records
+995,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
+995,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
+995,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
+995,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
+995,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record

@@ -6,6 +6,16 @@
   "infiltration_ach": 0.414, "window_opening_ach": 0.0, "ach_vent": 0.0,
   "fresh_air_lps": 0.0, "ventilation_efficiency": 0.0, "hr_eff": 0.0,
   "max_occupancy": 0.0, "gain_per_person": 0.0, "appliance_gains": 0.0, "lighting_load": 0.0,
+  "material_convention": {
+    "primary": "ashrae140_layers",
+    "dynamic_reduction": "ASHRAE 140-2023 Table 7-2 wall, roof and raised-floor layers",
+    "steady_state_transmission": "prescribed component U-values retained separately by the adapter",
+    "massless_floor_insulation_encoding": "ASHRAE minimum permitted density and cp encoded as 1e-9 because MaterialLayer requires strictly positive values",
+    "provenance": [
+      "_reference/ashrae140.pdf, Table 7-2",
+      "Buildings/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mo"
+    ]
+  },
   "constructions": {
     "case600 wall": [
       {"name":"wood siding","thickness_m":0.009,"conductivity_w_mk":0.140,"specific_heat_j_kgk":900.0,"density_kg_m3":530.0},
@@ -16,7 +26,7 @@
       {"name":"fiberglass quilt","thickness_m":0.1118,"conductivity_w_mk":0.040,"specific_heat_j_kgk":840.0,"density_kg_m3":12.0},
       {"name":"plasterboard","thickness_m":0.010,"conductivity_w_mk":0.160,"specific_heat_j_kgk":840.0,"density_kg_m3":950.0}],
     "case600 floor": [
-      {"name":"massless insulation proxy","thickness_m":1.003,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1e-9,"density_kg_m3":1e-9},
+      {"name":"underfloor insulation [ASHRAE minimum-capacity encoding]","thickness_m":1.003,"conductivity_w_mk":0.040,"specific_heat_j_kgk":1e-9,"density_kg_m3":1e-9},
       {"name":"timber flooring","thickness_m":0.025,"conductivity_w_mk":0.140,"specific_heat_j_kgk":1200.0,"density_kg_m3":650.0}]
   },
   "window_elements": [{"name":"south windows","area_m2":12.0,"azimuth_deg":180.0,"tilt_deg":90.0,"boundary_condition":"Outdoors","parent_surface":"south wall","u_value":3.1,"g_gl":0.769,"FF":0.0,"F_sh_ob":1.0,"F_sh_gl":1.0}],
