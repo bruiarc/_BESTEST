@@ -1,3 +1,0 @@
-case,configuration,source_allocation,heating_MWh,cooling_MWh,annual_transmitted_solar_MWh,maximum_balance_residual_W,heating_lower,heating_upper,cooling_lower,cooling_upper,heating_in_range,cooling_in_range,both_in_range,D_MWh_norm
-900,F36-like,native VDI area allocation,2.5210207526075137,2.7839157602293154,11.75195606191516,4.547473508864641e-13,1.04,2.28,2.35,2.6,False,False,False,0.7609076283075149
-900,F52-like,Modelica-derived air fraction; non-air remainder projected to AW,2.5090074378366793,2.8398744125525583,11.75195606191516,4.547473508864641e-13,1.04,2.28,2.35,2.6,False,False,False,0.977109873811104

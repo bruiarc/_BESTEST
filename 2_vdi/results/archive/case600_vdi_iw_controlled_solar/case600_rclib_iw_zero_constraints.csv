@@ -1,7 +1,0 @@
-file,function_class,condition_that_rejects_empty_or_zero_IW,physical_or_software_assessment
-RC_br/RClib/vdi6007/case_adapter.py,adapt_shared_case_to_vdi6007,iw_area = 2.0 * floor_area fallback,software/API fallback if no interior surfaces
-RC_br/RClib/vdi6007/types.py,OpaqueComponent.__post_init__,require_positive(area_m2),zero-area IW rejected by component contract
-RC_br/RClib/vdi6007/orchestration.py,prepare_model_case,require_nonempty(iw_items),empty IW rejected before reduction
-RC_br/RClib/vdi6007/orchestration.py,prepare_model_case,iw_area <= 0.0 raises,zero IW area rejected at room geometry check
-RC_br/RClib/vdi6007/aggregation.py,combined_radiative_resistance,require_nonempty(iw_surface_areas_m2); require_positive(each area),Eq. 29/31 implementation expects positive IW areas
-RC_br/RClib/vdi6007/orchestration.py,prepare_model_case,two_capacity_topology_valid expected True,current full AW topology assumes AW and IW storage branches

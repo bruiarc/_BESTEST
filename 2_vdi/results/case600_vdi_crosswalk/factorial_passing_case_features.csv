@@ -1,3 +1,0 @@
-factorial_id,topology,source_allocation,envelope,inside_h,longwave,internal_gain,heating_MWh,cooling_MWh,D_MWh_norm,solar_pipeline
-F36,no-IW,VDI-area,layer-controlled,8.0,harmonised,Modelica-split,4.823417416763939,5.678802212968258,0.0,native VDI
-F52,no-IW,Modelica-fractions,layer-controlled,8.0,harmonised,Modelica-split,4.816069717537059,5.748399395521484,0.0,native VDI

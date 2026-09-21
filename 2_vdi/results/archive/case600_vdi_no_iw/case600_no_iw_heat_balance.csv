@@ -1,9 +1,0 @@
-case_name,max_abs_residual_W,mean_abs_residual_W,all_values_finite
-Current 96 m2 IW + 0.414 ACH altitude + Modelica solar,9.094947017729282e-13,1.5690771868004282e-14,True
-New no-IW + 0.414 ACH altitude + Modelica solar,4.547473508864641e-13,2.647134160780623e-14,True
-Current 96 m2 IW + 0.5 ACH + Modelica solar,9.094947017729282e-13,2.0564929769242757e-14,True
-New no-IW + 0.5 ACH + Modelica solar,4.547473508864641e-13,2.6716934093778675e-14,True
-Current 96 m2 IW + 0.414 ACH altitude + VDI native solar,9.094947017729282e-13,1.5137054471361894e-14,True
-New no-IW + 0.414 ACH altitude + VDI native solar,4.547473508864641e-13,2.8432076581478704e-14,True
-Current 96 m2 IW + 0.5 ACH + VDI native solar,9.094947017729282e-13,1.9127520470602497e-14,True
-New no-IW + 0.5 ACH + VDI native solar,4.547473508864641e-13,2.8472759411490655e-14,True

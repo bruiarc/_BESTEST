@@ -1,8 +1,0 @@
-required_file
-case900_iso13790_native_hourly.csv
-case900_iso13790_diagnostic_modelica_solar_hourly.csv
-case900_metrics.csv
-case900_formal_ashrae_energy.csv
-case900_feb1_load_profile.csv
-case900_solar_comparison.csv
-case900_controlled_forcing_comparison.csv

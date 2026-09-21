@@ -1,9 +1,0 @@
-source_file,construction,material_name,thickness_m,conductivity_w_mk,density_kg_m3,specific_heat_j_kgk,layer_order_in_source,source_order_basis,layer_order_supplied_to_RClib,adapter_reverses_it,final_room_to_outside_order_used_by_VDI,status
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 wall,wood siding,0.009,0.14,530.0,900.0,1,outside-to-room per preview report,3,True,3,mapped
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 wall,fiberglass quilt,0.066,0.04,12.0,840.0,2,outside-to-room per preview report,2,True,2,mapped
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 wall,plasterboard,0.012,0.16,950.0,840.0,3,outside-to-room per preview report,1,True,1,mapped
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 roof,roof deck,0.019,0.14,530.0,900.0,1,outside-to-room per preview report,3,True,3,mapped
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 roof,fiberglass quilt,0.1118,0.04,12.0,840.0,2,outside-to-room per preview report,2,True,2,mapped
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 roof,plasterboard,0.01,0.16,950.0,840.0,3,outside-to-room per preview report,1,True,1,mapped
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 floor,massless insulation proxy,1.003,0.04,1e-09,1e-09,1,outside-to-room per preview report,2,True,2,implementation workaround
-/Users/rui.bo/Desktop/BASE/_development/2_validation/_BESTEST/2_preview/case600_defaults.json,case600 floor,timber flooring,0.025,0.14,650.0,1200.0,2,outside-to-room per preview report,1,True,1,mapped

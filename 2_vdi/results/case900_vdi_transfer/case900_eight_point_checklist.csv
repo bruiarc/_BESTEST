@@ -1,9 +1,0 @@
-case,category,verification_question,current_setting,source_provenance
-900,IW topology,Is the intended topology present and are absent-IW consequences explicit?,no-IW,Case600 candidate
-900,Solar/source allocation,"Which nodes receive solar and is allocation native, derived, or projected?",F36/F52 variants,Case600 candidate
-900,Envelope convention,"Which inputs control transmission and dynamics, and are they reconciled?",layer-controlled capacity proxy,Case900 aggregate mass + implementation proxy
-900,Inside heat-transfer treatment,Which total convention is active and how is it split?,total h_i=8 W/m2K,VDI-side convention
-900,Exterior long-wave treatment,Is long-wave native or harmonised and what is replaced?,harmonised,Case600 candidate
-900,Internal-gain allocation,Which nodes receive gains and what is the source of the split?,50% air / 50% AW,comparator projection
-900,Airflow/infiltration provenance,"What airflow quantity and provenance are used, and is conversion applied once?",0.414 1/h,repository comparator; canonical source open
-900,"Geometry, schedules and controls","Do geometry, schedules, setpoints, availability, and control match the case?",benchmark geometry/schedules/controls,canonical case record

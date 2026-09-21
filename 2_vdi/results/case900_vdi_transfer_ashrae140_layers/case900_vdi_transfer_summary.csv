@@ -1,3 +1,0 @@
-configuration,heating_MWh,cooling_MWh,heating_in_range,cooling_in_range,both_in_range,D_MWh_norm,maximum_balance_residual_W
-F36-like,2.2720127275966107,2.54478437067725,True,True,True,0.0,4.547473508864641e-13
-F52-like,2.2596759308253356,2.5962457440054747,True,True,True,0.0,4.547473508864641e-13

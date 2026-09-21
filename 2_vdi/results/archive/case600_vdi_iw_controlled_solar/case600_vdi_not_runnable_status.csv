@@ -1,3 +1,0 @@
-configuration,status,error
-empty iw_components,NOT RUNNABLE,ValueError: iw_components received (); expected a non-empty value
-zero-area IW component,NOT RUNNABLE,ValueError: area_m2 received 0.0; expected greater than 0 [m²]

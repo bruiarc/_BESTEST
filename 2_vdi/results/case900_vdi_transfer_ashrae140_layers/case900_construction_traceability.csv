@@ -1,2 +1,0 @@
-construction_convention,wall_layers,floor_layers,roof_layers,raw_layer_capacity_J_K,VDI_reduced_AW_resistance_K_W,VDI_reduced_AW_capacitance_J_K
-ashrae140_layers,wood siding + foam insulation + concrete block,massless insulation [ASHRAE rho=0 cp=0; positive numerical encoding] + concrete slab,roof deck + fiberglass quilt + plasterboard,15479951.712000001,0.0003854334583166991,14499670.886098353

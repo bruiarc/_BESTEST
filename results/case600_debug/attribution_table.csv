@@ -1,9 +1,0 @@
-hypothesis,metric_checked,observed,evidence,status
-annual load integration/sign,raw vs positive-schema sums,same annual magnitudes after documented sign conversion,matches,REJECTED
-thermostat/control,free temperature >27 C with cooling=0,0,no uncontrolled above-setpoint hours,UNLIKELY
-solar geometry/preprocessing,annual net zone solar,native=4.270 MWh; Modelica diagnostic=12.112 MWh,large forcing deficit,LIKELY
-glazing solar,annual window gain,native=3.854; Modelica=11.336 MWh,inspect incidence/diffuse/time convention,LIKELY
-opaque solar,annual opaque gain,native=0.416; Modelica=0.777 MWh,secondary component,UNRESOLVED
-ventilation,H_ve,17.8848 W/K independent and used,matches,REJECTED
-thermal mass,C_m and A_m,"2,024,016 J/K and 141.6 m2",matches prescribed mapping,UNLIKELY
-thermal core,Case600FF matched-forcing regression,0.298895 C MAE from established diagnostic,forcing-harmonised response remains close,UNLIKELY

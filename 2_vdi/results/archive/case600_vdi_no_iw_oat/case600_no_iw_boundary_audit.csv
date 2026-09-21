@@ -1,7 +1,0 @@
-topic,finding,evidence,classification
-OAT source,VDI and exported comparator OAT are position-identical except the final hour.,max abs difference=1.650 K; mean difference=0.000188 K,low-impact assumption
-Modelica floor boundary,Modelica Case600FF puts the floor in datConBou and connects it to an exterior convection component driven by weaBus.TDryBul.,"Case600FF.mo: datConBou(layers={matFlo}, A=48, til=F_); connect(weaBus.TDryBul, TAirConExt.T); connect(conOpa.solid, roo.surf_conBou[1])",possible model-form difference
-RClib floor boundary,RClib maps floor as BoundaryKind.EXTERIOR opaque AW with tilt 180 deg.,"area=48.0 m2, U=0.038 W/m2K, tilt=180.0, boundary=exterior",possible model-form difference / unresolved
-Infiltration altitude basis,Modelica uses 0.414 ACH adjusted for Denver altitude; 0.5 ACH is the sea-level canonical input.,0.414 ACH -> 0.014904 m3/s; 0.5 ACH -> 0.018000 m3/s for V=129.6 m3,confirmed input interpretation
-Thermostat controlled variable,"Both RClib diagnostics and Modelica Case600 control room air temperature, not operative temperature.",RClib run_thermostat_model compares free.indoor_air_temperature_c to setpoints; Modelica connects TRooAir.T to conHea.u_m and conCoo.u_m.,low-impact assumption
-Exterior long-wave sensitivity,LW-disabled diagnostic changes annual no-IW heating directly; this is diagnostic only.,native LW heating=6.588 MWh; LW disabled heating=5.988 MWh,possible model-form difference
