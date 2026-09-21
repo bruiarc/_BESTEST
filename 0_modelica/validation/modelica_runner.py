@@ -12,6 +12,11 @@ import pandas as pd
 from .dependencies import VALIDATION_ROOT
 
 
+MODELICA_ROOT = VALIDATION_ROOT
+BUILDINGS_ROOT = MODELICA_ROOT.parents[1] / "modelica_test"
+RESULTS_ROOT = BUILDINGS_ROOT / "results"
+
+
 def source_file_for_class(buildings_root: Path, model_class: str) -> Path:
     """Return the upstream ``.mo`` file corresponding to ``model_class``."""
     parts = model_class.split(".")
@@ -30,8 +35,7 @@ def _result_file_from_log(log: Path) -> Path:
     matches = re.findall(r'resultFile\s*=\s*"([^"]*)"', text)
     if not matches or not matches[-1]:
         raise RuntimeError(f"OpenModelica returned no result file:\n{text}")
-    result = Path(matches[-1])
-    return result
+    return Path(matches[-1])
 
 
 def run_modelica_class(
@@ -41,11 +45,7 @@ def run_modelica_class(
     """Simulate a Buildings class and return its DataFrame, source, and CSV path."""
     root = Path(root).resolve()
     if buildings_root is None:
-        # Prefer the original checkout when complete, otherwise use the
-        # bundled GitHub checkout that contains the BESTEST weather resources.
-        primary = root / "modelica-buildings"
-        fallback = root / "modelica-buildings-github-master"
-        buildings_root = primary if (primary / "Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.mos").is_file() else fallback
+        buildings_root = root.parents[1] / "modelica_test"
     buildings_root = Path(buildings_root).resolve()
     source = source_file_for_class(buildings_root, model_class)
     package = buildings_root / "Buildings" / "package.mo"
@@ -53,10 +53,7 @@ def run_modelica_class(
         raise FileNotFoundError(f"Buildings package file not found: {package}")
 
     name = model_class.rsplit(".", 1)[-1]
-    # Keep Modelica's generated sources, executable, CSV, log and metadata out
-    # of the implementation directory. Legacy `root/results/Case*` links are
-    # retained for notebooks that still read prior runs.
-    results_root = root.parent / "_modelica" / "results"
+    results_root = buildings_root / "results"
     result_dir = results_root / name
     result_dir.mkdir(parents=True, exist_ok=True)
     weather_name = (
@@ -93,7 +90,9 @@ getErrorString();
 simulate({runner_class}, outputFormat="csv", fileNamePrefix="{name}"{simulation_options});
 getErrorString();
 '''
-    with tempfile.NamedTemporaryFile("w", suffix=".mos", dir=root, delete=False) as handle:
+    with tempfile.NamedTemporaryFile(
+        "w", suffix=".mos", dir=results_root, delete=False
+    ) as handle:
         handle.write(mos)
         mos_path = Path(handle.name)
     wrapper = root / "scripts" / "run_omc.sh"
@@ -102,8 +101,12 @@ getErrorString();
     wrapper_log = results_root / mos_path.stem / "omc.log"
     try:
         completed = subprocess.run(
-            ["bash", str(wrapper), mos_path.name], cwd=root,
-            env={**os.environ, "MODELICA_RESULTS_ROOT": str(results_root)},
+            ["bash", str(wrapper), str(mos_path)], cwd=root,
+            env={
+                **os.environ,
+                "MODELICA_RESULTS_ROOT": str(results_root),
+                "MODELICA_BUILDINGS_ROOT": str(buildings_root),
+            },
             text=True, capture_output=True,
         )
     finally:
@@ -128,3 +131,15 @@ def run_validation_model(
         VALIDATION_ROOT, model_class, buildings_root=buildings_root,
         output_interval_seconds=output_interval_seconds,
     )
+
+
+def run_modelica_case(case: str, model_class: str) -> pd.DataFrame:
+    """Run a named Buildings case and return its result table."""
+    data, source, csv_path = run_modelica_class(
+        MODELICA_ROOT, model_class, buildings_root=BUILDINGS_ROOT
+    )
+    print(f"{case}: {model_class}")
+    print("Source:", source)
+    print("CSV:", csv_path)
+    print("Rows/columns:", data.shape)
+    return data
