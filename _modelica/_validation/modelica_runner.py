@@ -9,12 +9,29 @@ import tempfile
 
 import pandas as pd
 
-from .dependencies import VALIDATION_ROOT
+MODELICA_ROOT = Path(__file__).resolve().parents[1]
 
 
-MODELICA_ROOT = VALIDATION_ROOT
-BUILDINGS_ROOT = MODELICA_ROOT.parents[1] / "modelica_test"
-RESULTS_ROOT = BUILDINGS_ROOT / "results"
+def resolve_buildings_root(buildings_root: Path | str | None = None) -> Path:
+    """Locate a Modelica Buildings checkout without requiring other projects."""
+    configured = buildings_root or os.environ.get("MODELICA_BUILDINGS_ROOT")
+    if configured:
+        candidates = [Path(configured).expanduser().resolve()]
+    else:
+        candidates = [
+            MODELICA_ROOT.parents[1] / "modelica_test",
+            MODELICA_ROOT.parent / "modelica_test",
+            MODELICA_ROOT / "modelica_test",
+        ]
+    for candidate in candidates:
+        if (candidate / "Buildings" / "package.mo").is_file():
+            return candidate
+    searched = "\n  - ".join(str(path) for path in candidates)
+    raise FileNotFoundError(
+        "Could not locate the Modelica Buildings checkout. Set "
+        "MODELICA_BUILDINGS_ROOT to the directory containing Buildings/package.mo. "
+        f"Searched:\n  - {searched}"
+    )
 
 
 def source_file_for_class(buildings_root: Path, model_class: str) -> Path:
@@ -39,14 +56,12 @@ def _result_file_from_log(log: Path) -> Path:
 
 
 def run_modelica_class(
-    root: Path, model_class: str, *, buildings_root: Path | None = None,
+    root: Path, model_class: str, *, buildings_root: Path | str | None = None,
     output_interval_seconds: int | None = None,
 ) -> tuple[pd.DataFrame, Path, Path]:
     """Simulate a Buildings class and return its DataFrame, source, and CSV path."""
     root = Path(root).resolve()
-    if buildings_root is None:
-        buildings_root = root.parents[1] / "modelica_test"
-    buildings_root = Path(buildings_root).resolve()
+    buildings_root = resolve_buildings_root(buildings_root)
     source = source_file_for_class(buildings_root, model_class)
     package = buildings_root / "Buildings" / "package.mo"
     if not package.is_file():
@@ -95,7 +110,7 @@ getErrorString();
     ) as handle:
         handle.write(mos)
         mos_path = Path(handle.name)
-    wrapper = root / "scripts" / "run_omc.sh"
+    wrapper = root / "_validation" / "run_omc.sh"
     if not wrapper.is_file():
         raise FileNotFoundError(f"OpenModelica wrapper not found: {wrapper}")
     wrapper_log = results_root / mos_path.stem / "omc.log"
@@ -123,20 +138,22 @@ getErrorString();
 
 
 def run_validation_model(
-    model_class: str, *, buildings_root: Path | None = None,
+    model_class: str, *, buildings_root: Path | str | None = None,
     output_interval_seconds: int | None = None,
 ) -> tuple[pd.DataFrame, Path, Path]:
-    """Run a model using this validation directory's bundled dependencies."""
+    """Run a Modelica model without importing the optional RClib workflow."""
     return run_modelica_class(
-        VALIDATION_ROOT, model_class, buildings_root=buildings_root,
+        MODELICA_ROOT, model_class, buildings_root=buildings_root,
         output_interval_seconds=output_interval_seconds,
     )
 
 
-def run_modelica_case(case: str, model_class: str) -> pd.DataFrame:
+def run_modelica_case(
+    case: str, model_class: str, *, buildings_root: Path | str | None = None
+) -> pd.DataFrame:
     """Run a named Buildings case and return its result table."""
     data, source, csv_path = run_modelica_class(
-        MODELICA_ROOT, model_class, buildings_root=BUILDINGS_ROOT
+        MODELICA_ROOT, model_class, buildings_root=buildings_root
     )
     print(f"{case}: {model_class}")
     print("Source:", source)

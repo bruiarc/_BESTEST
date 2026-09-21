@@ -10,9 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 LEGACY = ROOT.parent / "modelica_test_2"
 MODEL = ROOT.parent / "_modelica" / "results"
 sys.path.insert(0, str(LEGACY))
-sys.path.insert(0, str(ROOT / "scripts"))
-from iso_validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
-from iso_validation.modelica_runner import run_validation_model
+sys.path.insert(0, str(ROOT / "validation"))
+from validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
+from validation.modelica_runner import run_validation_model
 from bestest_iso_run_case6xx import standard, metric
 
 CASES = ("910", "920", "930", "940", "950", "980", "985", "995")

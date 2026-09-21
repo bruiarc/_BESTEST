@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "validation"))
 from bestest_iso_reporting import markdown_table
 
 CASES = ("600", "610", "620", "630", "640", "650", "660", "670", "680", "685", "695", "900", "910", "920", "930", "940", "950", "980", "985", "995")

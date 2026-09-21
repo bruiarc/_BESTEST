@@ -18,8 +18,8 @@ import pandas as pd
 from IPython.display import display
 ISO_MODE = "modelica_solar"  # "modelica_solar" or "native"
 root = Path.cwd()
-if not (root / "scripts").is_dir(): root = root.parent
-sys.path.insert(0, str(root / "scripts"))
+if not (root / "validation").is_dir(): root = root.parent
+sys.path.insert(0, str(root / "validation"))
 from bestest_iso_reporting import annual_energy_table, completed_hour_label, markdown_table, selected_iso_mode
 from REPORT_MODULE import annual_tracks, comparison_table, peak_tracks, prescribed_changes, range_judgement
 case = CASE
@@ -71,7 +71,7 @@ def build(case, index):
 def build_summary():
     cells = [
         cell("md", "# BESTEST Cases 600–695 summary\n\nAnnual, peak, solar, and native-ISO results for the conditioned 6XX family."),
-        cell("code", "from pathlib import Path\nimport sys,pandas as pd,matplotlib.pyplot as plt\nfrom IPython.display import display\ncwd=Path.cwd().resolve()\nroot=next((p for p in (cwd,*cwd.parents) if (p/'scripts/bestest_iso_reporting.py').is_file()),None)\nif root is None: raise FileNotFoundError('Could not locate the BESTEST repository root')\nsys.path.insert(0,str(root/'scripts'))\nfrom bestest_iso_case6xx_reporting import annual_tracks,comparison_table\nCASES=('600','610','620','630','640','650','660','670','680','685','695')\nmetrics={case:pd.read_csv(root/'results'/'1_iso'/f'case{case}'/f'case{case}_metrics.csv') for case in CASES}"),
+        cell("code", "from pathlib import Path\nimport sys,pandas as pd,matplotlib.pyplot as plt\nfrom IPython.display import display\ncwd=Path.cwd().resolve()\nroot=next((p for p in (cwd,*cwd.parents) if (p/'validation/bestest_iso_reporting.py').is_file()),None)\nif root is None: raise FileNotFoundError('Could not locate the BESTEST repository root')\nsys.path.insert(0,str(root/'validation'))\nfrom bestest_iso_case6xx_reporting import annual_tracks,comparison_table\nCASES=('600','610','620','630','640','650','660','670','680','685','695')\nmetrics={case:pd.read_csv(root/'results'/'1_iso'/f'case{case}'/f'case{case}_metrics.csv') for case in CASES}"),
         cell("md", "## Annual heating and cooling"),
         cell("code", "annual=pd.concat([annual_tracks(metrics[case]).assign(Case=case) for case in CASES]); display(annual.pivot(index='Case',columns='Run',values=['Heating MWh','Cooling MWh']))\nfor metric in ('Heating MWh','Cooling MWh'):\n    fig,ax=plt.subplots(figsize=(8,3.5)); annual.pivot(index='Case',columns='Run',values=metric).plot(kind='bar',ax=ax); ax.set_ylabel(metric); ax.grid(axis='y',alpha=.25); fig.tight_layout(); plt.show()"),
         cell("md", "## Controlled-forcing residuals and solar"),

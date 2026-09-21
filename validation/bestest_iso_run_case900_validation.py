@@ -10,8 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 MODELICA_ROOT = ROOT / "0_modelica"
 MODELICA_RESULTS = ROOT.parent / "_modelica" / "results"
 sys.path.insert(0, str(MODELICA_ROOT))
-from iso_validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
-from iso_validation.modelica_runner import run_validation_model
+from validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
+from validation.modelica_runner import run_validation_model
 
 CASE = "900"
 COLS = ["timestamp_s", "case", "implementation", "run_mode", "formal_ashrae_result", "zone_temperature_C", "heating_load_W", "cooling_load_W", "outdoor_temperature_C", "solar_gain_W"]

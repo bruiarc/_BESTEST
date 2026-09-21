@@ -10,8 +10,8 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY = ROOT.parent / "modelica_test_2"
 sys.path.insert(0, str(LEGACY))
-from iso_validation.bestest_pipeline import CASE_DEFINITIONS, _denver_epw, make_rclib_zone  # noqa: E402
-from iso_validation.dependencies import radiation_classes  # noqa: E402
+from validation.bestest_pipeline import CASE_DEFINITIONS, _denver_epw, make_rclib_zone  # noqa: E402
+from validation.dependencies import radiation_classes  # noqa: E402
 
 
 def _summary(frame, column):

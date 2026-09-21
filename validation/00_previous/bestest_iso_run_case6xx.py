@@ -5,8 +5,8 @@ import argparse, sys
 from pathlib import Path
 import pandas as pd
 ROOT=Path(__file__).resolve().parents[1]; LEGACY=ROOT.parent/'modelica_test_2'; MODEL=ROOT.parent/'_modelica/results'; sys.path.insert(0,str(LEGACY))
-from iso_validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
-from iso_validation.modelica_runner import run_validation_model
+from validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
+from validation.modelica_runner import run_validation_model
 COLS=['timestamp_s','case','implementation','run_mode','formal_ashrae_result','zone_temperature_C','heating_load_W','cooling_load_W','outdoor_temperature_C','solar_gain_W']
 def standard(frame,case,implementation,run_mode,solar):
     return pd.DataFrame({'timestamp_s':frame.time_s,'case':case,'implementation':implementation,'run_mode':run_mode,'formal_ashrae_result':run_mode=='native','zone_temperature_C':frame['modelica_air_temperature_c'] if implementation=='modelica' else frame['rclib_air_temperature_c'],'heating_load_W':frame['modelica_heating_w'] if implementation=='modelica' else frame['rclib_heating_w'],'cooling_load_W':frame['modelica_cooling_w'] if implementation=='modelica' else frame['rclib_cooling_w'],'outdoor_temperature_C':frame.outdoor_temperature_c,'solar_gain_W':frame[solar]})[COLS]
