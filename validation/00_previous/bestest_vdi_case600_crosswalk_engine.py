@@ -29,9 +29,10 @@ import RClib.vdi6007.no_iw as no_iw
 AREA, VOLUME, RHO, CP = 48.0, 129.6, 1.20, 1005.0
 INDEX = pd.date_range("2023-01-01", periods=8760, freq="h")
 ONES, ZEROS = np.ones(8760), np.zeros(8760)
-WEATHER = DEV / "2_validation/modelica_test_2/modelica-buildings-github-master/Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
-SOLAR_FILE = BESTEST / "results/case600/case600_iso13790_diagnostic_modelica_solar_hourly.csv"
-OUT = HERE / "results/case600_vdi_crosswalk"
+INPUTS = BESTEST / "inputs/2_vdi"
+WEATHER = BESTEST / "_modelica_test_/Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+SOLAR_FILE = BESTEST / "results/1_iso/case600/case600_iso13790_diagnostic_modelica_solar_hourly.csv"
+OUT = BESTEST / "results/2_vdi/case600_vdi_crosswalk"
 
 # ISO/Modelica Zone5R1C source fractions, evaluated from the checked-in Case 600 inputs.
 AT, AM, HTRW, HSUR = 171.6, 141.6, 37.2, 9.1
@@ -75,10 +76,10 @@ def _case(s: Scenario) -> RCCase:
         internal_gain_convective_fraction=s.internal_air,
     )
     return RCCase(
-        year=2023, loc_json=HERE / "inputs/case600_location.json",
-        geo_json=HERE / "inputs/case600_geometry.json",
-        default_json=HERE / "inputs/case600_defaults.json", epw_path=WEATHER,
-        occupancy_profile_csv=HERE / "inputs/case600_occupancy.csv",
+        year=2023, loc_json=INPUTS / "case600_location.json",
+        geo_json=INPUTS / "case600_geometry.json",
+        default_json=INPUTS / "case600_defaults.json", epw_path=WEATHER,
+        occupancy_profile_csv=INPUTS / "case600_occupancy.csv",
         adapter_defaults=defaults,
         use_construction_properties=s.construction_mode == "layer-controlled",
     )

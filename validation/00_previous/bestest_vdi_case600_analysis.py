@@ -10,9 +10,9 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
-DEV = HERE.parents[2]
-INPUTS = HERE / "inputs"
-BESTEST = HERE.parent
+BESTEST = HERE.parents[1]
+DEV = BESTEST.parents[1]
+INPUTS = BESTEST / "inputs/2_vdi"
 sys.path.insert(0, str(DEV / "RC_br"))
 
 from RClib.vdi6007 import RCCase, run_thermostat_case
@@ -34,10 +34,10 @@ COOL_RANGE = (5.00, 6.83)
 INDEX = pd.date_range("2023-01-01", periods=8760, freq="h")
 ONES = np.ones(8760)
 ZEROS = np.zeros(8760)
-WEATHER = DEV / "2_validation/modelica_test_2/modelica-buildings-github-master/Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
-SOLAR_FILE = BESTEST / "results/case600/case600_iso13790_diagnostic_modelica_solar_hourly.csv"
-OUT4 = HERE / "results/case600_vdi_four_case"
-OUTS = HERE / "results/case600_vdi_remaining_sensitivity"
+WEATHER = BESTEST / "_modelica_test_/Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+SOLAR_FILE = BESTEST / "results/1_iso/case600/case600_iso13790_diagnostic_modelica_solar_hourly.csv"
+OUT4 = BESTEST / "results/2_vdi/case600_vdi_four_case"
+OUTS = BESTEST / "results/2_vdi/case600_vdi_remaining_sensitivity"
 
 
 def make_case(*, inside=8.0, heat_conv=1.00, cool_conv=1.00,

@@ -30,7 +30,7 @@ def read_reference_table(metric: str) -> pd.DataFrame:
         if metric == "heating"
         else "# 4. Annual cooling energy reference data"
     )
-    lines = (ROOT / "reference" / "BESTEST_LBNL_EUI.md").read_text().splitlines()
+    lines = (ROOT / "_reference" / "outcome" / "BESTEST_LBNL_EUI.md").read_text().splitlines()
     start = lines.index(heading)
     header_index = next(i for i in range(start, len(lines)) if lines[i].startswith("| Case |"))
     headers = [item.strip() for item in lines[header_index].strip("|").split("|")]

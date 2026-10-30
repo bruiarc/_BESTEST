@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
+ROOT = HERE.parents[1] / "2_vdi"
 
 NAMES = {
     "600":"01_case600_validation.ipynb", "610":"01a_case610_validation.ipynb",
@@ -32,7 +32,7 @@ def notebook(cells):
 for case, name in NAMES.items():
     cells = [
         md(f"# BESTEST Case {case} — VDI 6007 validation"),
-        code("from doc.bestest_vdi_reporting import (case_definition, resolved_input_mapping, static_checks, annual_validation, parent_response)\nCASE = \"%s\"" % case),
+        code("from pathlib import Path\nimport sys\ncwd = Path.cwd().resolve()\nroot = next(p for p in (cwd, *cwd.parents) if (p / 'validation/bestest_vdi_reporting.py').is_file())\nsys.path.insert(0, str(root / 'validation'))\nfrom bestest_vdi_reporting import (case_definition, resolved_input_mapping, static_checks, annual_validation, parent_response)\nCASE = \"%s\"" % case),
         md("## Case definition and provenance"), code("case_definition(CASE)"),
         md("## Resolved VDI input mapping"), code("resolved_input_mapping(CASE)"),
         md("## Static validation checks"), code("static_checks(CASE)"),
@@ -48,7 +48,7 @@ summaries = {
 }
 for name, (title, expression) in summaries.items():
     cells = [md(f"# {title}"),
-        code("from doc.bestest_vdi_reporting import family_summary, combined_summary, unresolved_benchmark_issues"),
+        code("from pathlib import Path\nimport sys\ncwd = Path.cwd().resolve()\nroot = next(p for p in (cwd, *cwd.parents) if (p / 'validation/bestest_vdi_reporting.py').is_file())\nsys.path.insert(0, str(root / 'validation'))\nfrom bestest_vdi_reporting import family_summary, combined_summary, unresolved_benchmark_issues"),
         md("## Annual benchmark and parent-relative response"), code(expression),
         md("## Unresolved benchmark-data issues"), code("unresolved_benchmark_issues()")]
     (ROOT / name).write_text(json.dumps(notebook(cells), indent=1) + "\n")

@@ -3,6 +3,7 @@ from pathlib import Path
 import nbformat as nbf
 
 HERE = Path(__file__).resolve().parent
+NOTEBOOKS = Path(__file__).resolve().parents[2] / "2_vdi"
 
 def md(s): return nbf.v4.new_markdown_cell(s)
 def code(s): return nbf.v4.new_code_cell(s)
@@ -13,10 +14,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-HERE = Path.cwd().resolve()
-if HERE.name != '2_vdi':
-    HERE = HERE / '2_validation/_BESTEST/2_vdi'
-sys.path.insert(0, str(HERE))
+cwd = Path.cwd().resolve()
+root = next((p for p in (cwd, *cwd.parents) if (p / 'validation/00_previous/bestest_vdi_case600_analysis.py').is_file()), None)
+if root is None:
+    raise FileNotFoundError('Could not locate the BESTEST repository root')
+HERE = root / '2_vdi'
+sys.path.insert(0, str(root / 'validation/00_previous'))
 import bestest_vdi_case600_analysis as analysis
 pd.set_option('display.max_columns', 30)
 plt.style.use('seaborn-v0_8-whitegrid')"""
@@ -90,4 +93,4 @@ The strongest demonstrated sensitivity is the HVAC delivery split, and the stron
 
 for name,cells in [("bestest_vdi_case600_four_case_validation.ipynb",validation_cells),("case600_vdi_remaining_parameter_sensitivity.ipynb",sensitivity_cells)]:
     nb=nbf.v4.new_notebook(cells=cells, metadata={"kernelspec":{"display_name":"Python 3","language":"python","name":"python3"},"language_info":{"name":"python","version":"3"}})
-    nbf.write(nb,HERE/name)
+    nbf.write(nb, NOTEBOOKS / name)

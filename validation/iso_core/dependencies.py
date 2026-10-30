@@ -5,7 +5,8 @@ from pathlib import Path
 import sys
 
 
-VALIDATION_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+BUILDINGS_ROOT = REPOSITORY_ROOT / "_modelica_test_"
 WORKSPACE_ROOT = Path(__file__).resolve().parents[4]
 RCLIB_PARENT = WORKSPACE_ROOT / "RC_br"
 

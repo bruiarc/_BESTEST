@@ -17,7 +17,7 @@ PROGRAMS = ("BSIMAC", "CSE", "DeST", "EnergyPlus", "ESP-r", "TRNSYS", "Modelica 
 
 def _reference(metric: str) -> pd.DataFrame:
     section = "Annual heating energy reference data" if metric == "heating" else "Annual cooling energy reference data"
-    data = markdown_table(ROOT / "_ref" / "BESTEST_LBNL_all_cases_reference.md", section).copy()
+    data = markdown_table(ROOT / "_reference" / "outcome" / "BESTEST_LBNL_EUI.md", section).copy()
     data = data[data.Case.isin(CASES)].set_index("Case").loc[list(CASES)].reset_index()
     for column in ("Lower", "Upper", *PROGRAMS):
         data[column] = pd.to_numeric(data[column])

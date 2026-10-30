@@ -3,7 +3,7 @@
 from pathlib import Path
 import nbformat
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 TARGETS = {
     "01_cases6xx_summary.ipynb": ("600", "610", "620", "630", "640", "650", "660", "670", "680", "685", "695"),
     "02_cases9xx_summary.ipynb": ("900", "910", "920", "930", "940", "950", "980", "985", "995"),
@@ -12,7 +12,7 @@ TARGETS = {
 
 def main() -> None:
     for name, cases in TARGETS.items():
-        path = ROOT / "notebooks" / name
+        path = ROOT / "1_iso" / name
         notebook = nbformat.read(path, as_version=4)
         notebook.cells = [cell for cell in notebook.cells if "Annual ASHRAE 140 matrix" not in cell.source]
         literal = repr(cases)

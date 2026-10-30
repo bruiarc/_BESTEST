@@ -7,11 +7,12 @@ import sys
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-MODELICA_ROOT = ROOT / "0_modelica"
-MODELICA_RESULTS = ROOT.parent / "_modelica" / "results"
-sys.path.insert(0, str(MODELICA_ROOT))
-from validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
-from validation.modelica_runner import run_validation_model
+EXECUTOR_ROOT = ROOT / "_executor"
+MODELICA_RESULTS = ROOT / "_modelica_test_" / "results"
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(EXECUTOR_ROOT))
+from validation.iso_core.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
+from core.modelica_runner import run_validation_model
 
 CASE = "900"
 COLS = ["timestamp_s", "case", "implementation", "run_mode", "formal_ashrae_result", "zone_temperature_C", "heating_load_W", "cooling_load_W", "outdoor_temperature_C", "solar_gain_W"]
@@ -32,6 +33,7 @@ def main():
     elif args.run_modelica: raw, _, _ = run_validation_model(CASE_DEFINITIONS[CASE].modelica_class)
     else: raise FileNotFoundError(f"No cached Case900 result: {raw_path}")
     modelica = modelica_track(raw); modelica_std = standard(modelica, "modelica", "native", "modelica_resolved_solar_gain_w")
+    (MODELICA_RESULTS / "Case900").mkdir(parents=True, exist_ok=True)
     modelica_std.to_csv(MODELICA_RESULTS / "Case900/Case900_standardized_hourly.csv", index=False)
     native = run_rclib_native_solar(CASE_DEFINITIONS[CASE], raw); native_std = standard(native, "iso13790", "native", "native_rclib_solar_gain_w"); native_std.to_csv(out / "case900_iso13790_native_hourly.csv", index=False)
     diagnostic = run_rclib_matched_forcing(CASE_DEFINITIONS[CASE], raw); diagnostic_std = standard(diagnostic, "iso13790", "diagnostic_modelica_solar", "modelica_resolved_solar_gain_w"); diagnostic_std.to_csv(out / "case900_iso13790_diagnostic_modelica_solar_hourly.csv", index=False)

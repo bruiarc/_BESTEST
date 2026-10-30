@@ -372,10 +372,10 @@ Avoid creating repeated large artifacts that duplicate an authoritative file
 without adding information. Modelica execution artifacts are centrally retained
 under:
 
-`_development/2__validation/_modelica/results/`
+`_development/_validation/_BESTEST/_modelica_test_/results/`
 
 For example, `modelica_case600_raw.csv` duplicates the centralized source CSV
-`_modelica/results/Case600/Case600_res.csv`; it should not be generated as a
+`_modelica_test_/results/Case600/Case600_res.csv`; it should not be generated as a
 second report artifact. Diagnostic code must read the centralized Modelica CSV
 directly when raw variables are required.
 

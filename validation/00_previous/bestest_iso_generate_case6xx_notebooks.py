@@ -4,7 +4,9 @@ from pathlib import Path
 import json
 import nbformat as nbf
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
+INPUTS = ROOT / "inputs" / "1_iso"
+NOTEBOOKS = ROOT / "1_iso"
 CASES = ("610", "620", "630", "640", "650", "660", "670", "680", "685", "695")
 DELTA_FILE = "case6xx_deltas.json"
 BASE_INPUT = "case600.json"
@@ -23,8 +25,8 @@ sys.path.insert(0, str(root / "validation"))
 from bestest_iso_reporting import annual_energy_table, completed_hour_label, markdown_table, selected_iso_mode
 from REPORT_MODULE import annual_tracks, comparison_table, peak_tracks, prescribed_changes, range_judgement
 case = CASE
-out = root / "results" / f"case{case}"
-reference = root / "_ref" / "BESTEST_LBNL_all_cases_reference.md"
+out = root / "results" / "1_iso" / f"case{case}"
+reference = root / "_reference" / "outcome" / "BESTEST_LBNL_EUI.md"
 metrics = pd.read_csv(out / f"case{case}_metrics.csv")
 solar = pd.read_csv(out / f"case{case}_solar_comparison.csv")
 references = pd.concat([pd.DataFrame([{"case": r.Case, "metric": metric, "lower": float(r.Lower), "upper": float(r.Upper)} for _, r in markdown_table(reference, section).iterrows()]) for section, metric in (("Annual heating energy reference data", "annual_heating_energy"), ("Annual cooling energy reference data", "annual_cooling_energy"))], ignore_index=True)
@@ -47,13 +49,13 @@ fig,ax=plt.subplots(figsize=(7,3.4)); ax.bar(peaks["Track"],peaks["{column}"],co
 ax.set(title=f"Case {{case}}: {title}",ylabel="kW",ylim=(0,peaks["{column}"].max()*1.2 if peaks["{column}"].max() else 1)); ax.grid(axis="y",alpha=.25); fig.tight_layout(); plt.show()'''
 
 def build(case, index):
-    changes = json.loads((ROOT / "inputs" / DELTA_FILE).read_text())["cases"][case]["changes"]
+    changes = json.loads((INPUTS / DELTA_FILE).read_text())["cases"][case]["changes"]
     details = "\n".join(f"- {change}" for change in changes)
     cells = [
         cell("md", f"# Case {case} BESTEST validation\n\nNative ISO is the formal ASHRAE 140 result. `modelica_solar` is a controlled-forcing comparative run and is not a formal result."),
         cell("code", f'CASE="{case}"\n' + SETUP.replace("REPORT_MODULE", REPORT_MODULE)),
         cell("md", f"## 1. Case definition\n\nCase {case} inherits Case 600 with these explicit BESTEST changes:\n\n{details}\n\nWeather: Denver TMY3; non-leap calendar; simulation/output timestep: 1 h."),
-        cell("code", f"display(prescribed_changes(case)); base=json.loads((root/'inputs'/'{BASE_INPUT}').read_text()); display(pd.DataFrame([{{\"Geometry\":f\"{{base['geometry']['floor_area_m2']}} m² floor; {{base['geometry']['volume_m3']}} m³ volume\",\"Construction\":base['constructions']['mass_class'],\"Weather\":base['weather']['identifier'],\"Timestep\":\"1 h\"}}])); display(pd.read_csv(root/'inputs'/'{MAPPING_INPUT}')[['quantity','ashrae_value','ashrae_unit','modelica_parameter','iso_parameter','mapping_type']])"),
+        cell("code", f"display(prescribed_changes(case)); base=json.loads((root/'inputs'/'1_iso'/'{BASE_INPUT}').read_text()); display(pd.DataFrame([{{\"Geometry\":f\"{{base['geometry']['floor_area_m2']}} m² floor; {{base['geometry']['volume_m3']}} m³ volume\",\"Construction\":base['constructions']['mass_class'],\"Weather\":base['weather']['identifier'],\"Timestep\":\"1 h\"}}])); display(pd.read_csv(root/'inputs'/'1_iso'/'{MAPPING_INPUT}')[['quantity','ashrae_value','ashrae_unit','modelica_parameter','iso_parameter','mapping_type']])"),
         cell("md", "## 2. Annual heating and cooling\n\nThree computed tracks, MWh."), cell("code", "display(annual_tracks(metrics))"),
         cell("md", "## 3. Annual energy validation outcome\n\nFormal annual-energy judgement for native ISO only."), cell("code", "display(range_judgement(metrics,references,case))"),
         cell("md", "## 4. Annual heating figure\n\nAnnual heating energy with published ASHRAE limits."), cell("code", annual_plot("annual_heating_energy")),
@@ -66,7 +68,7 @@ def build(case, index):
         cell("md", "## 11. Native versus controlled-forcing effect\n\nEffect of changing only solar forcing in ISO."), cell("code", 'display(comparison_table(metrics,"solar_effect").query("Metric in [\'Annual heating\', \'Annual cooling\']"))'),
         cell("md", "## 12. Final case outcome\n\nConcise formal-native and controlled-forcing record."), cell("code", "judgement=range_judgement(metrics,references,case); summary=annual_tracks(metrics).set_index('Run'); summary['Formal ASHRAE status']=['; '.join(judgement['Formal status']),'diagnostic','reference implementation']; display(summary.reset_index()); print('Native ISO formal annual status:','; '.join(judgement['Formal status'])); print('Controlled forcing remains a Modelica-comparative diagnostic; no new schema or timestamp mapping is introduced.')")]
     notebook=nbf.v4.new_notebook(cells=cells,metadata={"kernelspec":{"display_name":"Python 3","language":"python","name":"python3"},"language_info":{"name":"python","version":"3.11"}})
-    nbf.write(notebook,ROOT/"notebooks"/f"{index:02d}_case{case}_validation.ipynb")
+    nbf.write(notebook, NOTEBOOKS / f"{index:02d}_case{case}_validation.ipynb")
 
 def build_summary():
     cells = [
@@ -75,9 +77,9 @@ def build_summary():
         cell("md", "## Annual heating and cooling"),
         cell("code", "annual=pd.concat([annual_tracks(metrics[case]).assign(Case=case) for case in CASES]); display(annual.pivot(index='Case',columns='Run',values=['Heating MWh','Cooling MWh']))\nfor metric in ('Heating MWh','Cooling MWh'):\n    fig,ax=plt.subplots(figsize=(8,3.5)); annual.pivot(index='Case',columns='Run',values=metric).plot(kind='bar',ax=ax); ax.set_ylabel(metric); ax.grid(axis='y',alpha=.25); fig.tight_layout(); plt.show()"),
         cell("md", "## Controlled-forcing residuals and solar"),
-        cell("code", "residual=pd.concat([comparison_table(metrics[case],'controlled_modelica').assign(Case=case) for case in CASES]); display(residual.pivot(index='Case',columns='Metric',values='Difference %'))\nsolar=[]\nfor case in CASES:\n    values=pd.read_csv(root/'results'/f'case{case}'/f'case{case}_solar_comparison.csv').set_index('quantity').value\n    solar.append({'Case':case,'Native solar MWh':values['native_rclib_zone_solar_MWh'],'Modelica solar MWh':values['modelica_resolved_zone_solar_MWh']})\ndisplay(pd.DataFrame(solar))")]
+        cell("code", "residual=pd.concat([comparison_table(metrics[case],'controlled_modelica').assign(Case=case) for case in CASES]); display(residual.pivot(index='Case',columns='Metric',values='Difference %'))\nsolar=[]\nfor case in CASES:\n    values=pd.read_csv(root/'results'/'1_iso'/f'case{case}'/f'case{case}_solar_comparison.csv').set_index('quantity').value\n    solar.append({'Case':case,'Native solar MWh':values['native_rclib_zone_solar_MWh'],'Modelica solar MWh':values['modelica_resolved_zone_solar_MWh']})\ndisplay(pd.DataFrame(solar))")]
     notebook=nbf.v4.new_notebook(cells=cells,metadata={"kernelspec":{"display_name":"Python 3","language":"python","name":"python3"},"language_info":{"name":"python","version":"3.11"}})
-    nbf.write(notebook,ROOT/"notebooks"/"14_cases6xx_summary.ipynb")
+    nbf.write(notebook, NOTEBOOKS / "14_cases6xx_summary.ipynb")
 
 if __name__ == "__main__":
     for index, case in enumerate(CASES,start=4): build(case,index)

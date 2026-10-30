@@ -11,10 +11,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-HERE = Path.cwd().resolve()
-if HERE.name != '2_vdi':
-    HERE = HERE / '2_validation/_BESTEST/2_vdi'
-sys.path.insert(0, str(HERE))
+BESTEST = Path(__file__).resolve().parents[2]
+HERE = BESTEST / '2_vdi'
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bestest_vdi_case600_analysis as analysis
 pd.set_option('display.max_columns', 30)
 plt.style.use('seaborn-v0_8-whitegrid')

@@ -10,7 +10,7 @@ are mapped as follows:
 
 | Column | Cached source |
 |---|---|
-| `LBNL-5R1C` | Published LBNL `Modelica ISO13790` value in `reference/BESTEST_LBNL_EUI.md` |
+| `LBNL-5R1C` | Published LBNL `Modelica ISO13790` value in `_reference/outcome/BESTEST_LBNL_EUI.md` |
 | `5R1C` | `RClib-ISO + Modelica-resolved solar`: `iso13790` + `diagnostic_modelica_solar` in `results/1_iso/case*/case*_metrics.csv` |
 | `7R2C` | `F36` / `F36-like` row in `results/2_vdi/bestest_6xx_9xx_ashrae140_layers/annual_results.csv` |
 

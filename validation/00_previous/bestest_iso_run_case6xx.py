@@ -4,9 +4,9 @@ from __future__ import annotations
 import argparse, sys
 from pathlib import Path
 import pandas as pd
-ROOT=Path(__file__).resolve().parents[1]; LEGACY=ROOT.parent/'modelica_test_2'; MODEL=ROOT.parent/'_modelica/results'; sys.path.insert(0,str(LEGACY))
-from validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
-from validation.modelica_runner import run_validation_model
+ROOT=Path(__file__).resolve().parents[2]; MODEL=ROOT/'_modelica_test_/results'; sys.path.insert(0,str(ROOT)); sys.path.insert(0,str(ROOT/'_executor'))
+from validation.iso_core.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
+from core.modelica_runner import run_validation_model
 COLS=['timestamp_s','case','implementation','run_mode','formal_ashrae_result','zone_temperature_C','heating_load_W','cooling_load_W','outdoor_temperature_C','solar_gain_W']
 def standard(frame,case,implementation,run_mode,solar):
     return pd.DataFrame({'timestamp_s':frame.time_s,'case':case,'implementation':implementation,'run_mode':run_mode,'formal_ashrae_result':run_mode=='native','zone_temperature_C':frame['modelica_air_temperature_c'] if implementation=='modelica' else frame['rclib_air_temperature_c'],'heating_load_W':frame['modelica_heating_w'] if implementation=='modelica' else frame['rclib_heating_w'],'cooling_load_W':frame['modelica_cooling_w'] if implementation=='modelica' else frame['rclib_cooling_w'],'outdoor_temperature_C':frame.outdoor_temperature_c,'solar_gain_W':frame[solar]})[COLS]
@@ -17,7 +17,7 @@ def main():
     if raw_path.is_file(): raw=pd.read_csv(raw_path)
     elif a.run_modelica: raw,_,_=run_validation_model(CASE_DEFINITIONS[case].modelica_class)
     else: raise FileNotFoundError(f'Missing {raw_path}; re-run with --run-modelica')
-    out=ROOT/'results'/f'case{case}'; out.mkdir(parents=True,exist_ok=True); mo=modelica_track(raw); ms=standard(mo,case,'modelica','native','modelica_resolved_solar_gain_w'); (MODEL/f'Case{case}').mkdir(parents=True,exist_ok=True); ms.to_csv(MODEL/f'Case{case}/Case{case}_standardized_hourly.csv',index=False)
+    out=ROOT/'results'/'1_iso'/f'case{case}'; out.mkdir(parents=True,exist_ok=True); mo=modelica_track(raw); ms=standard(mo,case,'modelica','native','modelica_resolved_solar_gain_w'); (MODEL/f'Case{case}').mkdir(parents=True,exist_ok=True); ms.to_csv(MODEL/f'Case{case}/Case{case}_standardized_hourly.csv',index=False)
     nat=run_rclib_native_solar(CASE_DEFINITIONS[case],raw); ns=standard(nat,case,'iso13790','native','native_rclib_solar_gain_w'); ns.to_csv(out/f'case{case}_iso13790_native_hourly.csv',index=False)
     dia=run_rclib_matched_forcing(CASE_DEFINITIONS[case],raw); ds=standard(dia,case,'iso13790','diagnostic_modelica_solar','modelica_resolved_solar_gain_w'); ds.to_csv(out/f'case{case}_iso13790_diagnostic_modelica_solar_hourly.csv',index=False)
     allm=pd.concat([metric(ms,case,'modelica','native'),metric(ns,case,'iso13790','native'),metric(ds,case,'iso13790','diagnostic_modelica_solar')]); allm.to_csv(out/f'case{case}_metrics.csv',index=False)

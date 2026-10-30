@@ -1,4 +1,4 @@
-"""Run a Buildings Modelica class using the established ``run_omc.sh`` wrapper."""
+"""Run Modelica Buildings classes through the repository-local executor."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -9,20 +9,18 @@ import tempfile
 
 import pandas as pd
 
-MODELICA_ROOT = Path(__file__).resolve().parents[1]
+EXECUTOR_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = EXECUTOR_ROOT.parent
+DEFAULT_BUILDINGS_ROOT = REPOSITORY_ROOT / "_modelica_test_"
 
 
 def resolve_buildings_root(buildings_root: Path | str | None = None) -> Path:
-    """Locate a Modelica Buildings checkout without requiring other projects."""
+    """Locate the repository-local Modelica Buildings checkout."""
     configured = buildings_root or os.environ.get("MODELICA_BUILDINGS_ROOT")
     if configured:
         candidates = [Path(configured).expanduser().resolve()]
     else:
-        candidates = [
-            MODELICA_ROOT.parents[1] / "modelica_test",
-            MODELICA_ROOT.parent / "modelica_test",
-            MODELICA_ROOT / "modelica_test",
-        ]
+        candidates = [DEFAULT_BUILDINGS_ROOT]
     for candidate in candidates:
         if (candidate / "Buildings" / "package.mo").is_file():
             return candidate
@@ -110,7 +108,7 @@ getErrorString();
     ) as handle:
         handle.write(mos)
         mos_path = Path(handle.name)
-    wrapper = root / "_validation" / "run_omc.sh"
+    wrapper = root / "core" / "run_omc.sh"
     if not wrapper.is_file():
         raise FileNotFoundError(f"OpenModelica wrapper not found: {wrapper}")
     wrapper_log = results_root / mos_path.stem / "omc.log"
@@ -141,9 +139,9 @@ def run_validation_model(
     model_class: str, *, buildings_root: Path | str | None = None,
     output_interval_seconds: int | None = None,
 ) -> tuple[pd.DataFrame, Path, Path]:
-    """Run a Modelica model without importing the optional RClib workflow."""
+    """Run a Modelica model through the pure executor runtime."""
     return run_modelica_class(
-        MODELICA_ROOT, model_class, buildings_root=buildings_root,
+        EXECUTOR_ROOT, model_class, buildings_root=buildings_root,
         output_interval_seconds=output_interval_seconds,
     )
 
@@ -153,7 +151,7 @@ def run_modelica_case(
 ) -> pd.DataFrame:
     """Run a named Buildings case and return its result table."""
     data, source, csv_path = run_modelica_class(
-        MODELICA_ROOT, model_class, buildings_root=buildings_root
+        EXECUTOR_ROOT, model_class, buildings_root=buildings_root
     )
     print(f"{case}: {model_class}")
     print("Source:", source)

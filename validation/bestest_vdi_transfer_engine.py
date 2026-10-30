@@ -30,8 +30,8 @@ AREA, VOLUME, RHO, CP = 48.0, 129.6, 1.20, 1005.0
 INDEX = pd.date_range("2023-01-01", periods=8760, freq="h")
 ONES, ZEROS = np.ones(8760), np.zeros(8760)
 HEAT_BOUNDS_900, COOL_BOUNDS_900 = (1.04, 2.28), (2.35, 2.60)
-WEATHER = BESTEST / "0_modelica/modelica-buildings-github-master/Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
-REFERENCE = BESTEST / "_ref/BESTEST_LBNL_EUI.md"
+WEATHER = BESTEST / "_modelica_test_/Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+REFERENCE = BESTEST / "_reference/outcome/BESTEST_LBNL_EUI.md"
 CASE600_RESULTS = BESTEST / "results/2_vdi/case600_vdi_crosswalk/factorial_mwh_summary_native_vdi.csv"
 CONSTRUCTION_REGISTRY = BESTEST / "inputs/2_vdi/ashrae140_case_constructions.json"
 PAIR_MAP = {"610":"910", "620":"920", "630":"930", "640":"940",
@@ -115,7 +115,7 @@ def _glazing_id(case: str) -> str:
 
 def _case_changes(case: str) -> list[str]:
     family = "case9xx_deltas.json" if case.startswith("9") else "case6xx_deltas.json"
-    return json.loads((BESTEST/"inputs"/family).read_text())["cases"][case]["changes"]
+    return json.loads((BESTEST/"inputs"/"1_iso"/family).read_text())["cases"][case]["changes"]
 
 
 def _configure_defaults(case: str) -> dict:
@@ -366,9 +366,9 @@ def simulate_case(case: str, configuration: TransferConfiguration):
     with tempfile.TemporaryDirectory(prefix=f"bestest_{case}_") as td:
         default_path = Path(td)/"defaults.json"
         default_path.write_text(json.dumps(defaults))
-        rc = RCCase(year=2023, loc_json=VDI/"inputs/case600_location.json",
-            geo_json=VDI/"inputs/case600_geometry.json", default_json=default_path,
-            epw_path=WEATHER, occupancy_profile_csv=VDI/"inputs/case600_occupancy.csv",
+        rc = RCCase(year=2023, loc_json=BESTEST/"inputs/2_vdi/case600_location.json",
+            geo_json=BESTEST/"inputs/2_vdi/case600_geometry.json", default_json=default_path,
+            epw_path=WEATHER, occupancy_profile_csv=BESTEST/"inputs/2_vdi/case600_occupancy.csv",
             adapter_defaults=VDIAdapterDefaults(inside_total_coefficient_w_m2k=8.0,
                 heating_convective_fraction=1.0, cooling_convective_fraction=1.0,
                 internal_gain_convective_fraction=0.5),

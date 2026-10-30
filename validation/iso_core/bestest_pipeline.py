@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .dependencies import VALIDATION_ROOT, radiation_classes, zone_class
+from .dependencies import BUILDINGS_ROOT, radiation_classes, zone_class
 
 CONDITIONED_CASES = ("600", "610", "620", "630", "640", "650", "660", "670", "680", "685", "695", "900", "910", "920", "930", "940", "950", "980", "985", "995")
 FREE_FLOATING_CASES = ("600FF", "650FF", "680FF", "900FF", "950FF")
@@ -139,11 +139,10 @@ def run_rclib_matched_forcing(definition: CaseDefinition, modelica: pd.DataFrame
 
 def _denver_epw() -> Path:
     """Resolve the same Denver TMY3 EPW used by the Buildings weather reader."""
-    names = (VALIDATION_ROOT / "modelica-buildings", VALIDATION_ROOT / "modelica-buildings-github-master")
-    for root in names:
-        candidate = root / "Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
-        if candidate.is_file(): return candidate
-    raise FileNotFoundError("Denver TMY3 EPW not available beside either Buildings checkout")
+    candidate = BUILDINGS_ROOT / "Buildings/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.epw"
+    if candidate.is_file():
+        return candidate
+    raise FileNotFoundError(f"Denver TMY3 EPW not found: {candidate}")
 
 
 def run_rclib_native_solar(definition: CaseDefinition, modelica: pd.DataFrame, epw: Path | None = None) -> pd.DataFrame:
@@ -226,7 +225,7 @@ class _TableParser(HTMLParser):
 
 def published_reference_tables(usersguide: Path | None = None) -> pd.DataFrame:
     """Programmatically read the authoritative tables bundled with Buildings."""
-    path = usersguide or VALIDATION_ROOT / "modelica-buildings" / "Buildings" / "ThermalZones" / "ISO13790" / "Validation" / "BESTEST" / "UsersGuide.mo"
+    path = usersguide or BUILDINGS_ROOT / "Buildings" / "ThermalZones" / "ISO13790" / "Validation" / "BESTEST" / "UsersGuide.mo"
     parser = _TableParser(); parser.feed(path.read_text(encoding="utf-8"))
     rows=[]
     for table in parser.tables:

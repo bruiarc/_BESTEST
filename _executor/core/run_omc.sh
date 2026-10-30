@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+EXECUTOR_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OMC_BIN="${OPENMODELICA_OMC:-}"
 DOCKER_BIN="${DOCKER_BIN:-}"
 
@@ -48,7 +48,7 @@ MOS_FILE="${1:?usage: run_omc.sh MOS_FILE | --check}"
 if [[ "$MOS_FILE" = /* ]]; then
   MOS_PATH="$MOS_FILE"
 else
-  MOS_PATH="$ROOT/$MOS_FILE"
+  MOS_PATH="$EXECUTOR_ROOT/$MOS_FILE"
 fi
 RESULTS_ROOT="${MODELICA_RESULTS_ROOT:?MODELICA_RESULTS_ROOT must be set}"
 BUILDINGS_ROOT="${MODELICA_BUILDINGS_ROOT:?MODELICA_BUILDINGS_ROOT must be set}"
@@ -78,7 +78,7 @@ else
   fi
   LIBRARY_PATH="$MSL_ROOT:$BUILDINGS_ROOT"
   "$DOCKER_BIN" run --rm \
-    -v "$ROOT:$ROOT" \
+    -v "$EXECUTOR_ROOT:$EXECUTOR_ROOT" \
     -v "$RESULTS_ROOT:$RESULTS_ROOT" \
     -v "$BUILDINGS_ROOT:$BUILDINGS_ROOT:ro" \
     -e "MODELICAPATH=$LIBRARY_PATH" \

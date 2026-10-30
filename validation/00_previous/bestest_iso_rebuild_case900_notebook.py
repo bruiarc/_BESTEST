@@ -3,9 +3,9 @@
 from pathlib import Path
 import nbformat
 
-ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "notebooks" / "01_case600_pilot_validation.ipynb"
-TARGET = ROOT / "notebooks" / "02_case900_validation.ipynb"
+ROOT = Path(__file__).resolve().parents[2]
+SOURCE = ROOT / "1_iso" / "01_case600_pilot_validation.ipynb"
+TARGET = ROOT / "1_iso" / "02_case900_validation.ipynb"
 
 
 def main() -> None:

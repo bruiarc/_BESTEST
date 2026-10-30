@@ -1,1 +1,4 @@
-/modelica_test/
+/_modelica_test_/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/

@@ -6,13 +6,12 @@ from pathlib import Path
 import sys
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[1]
-LEGACY = ROOT.parent / "modelica_test_2"
-MODEL = ROOT.parent / "_modelica" / "results"
-sys.path.insert(0, str(LEGACY))
-sys.path.insert(0, str(ROOT / "validation"))
-from validation.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
-from validation.modelica_runner import run_validation_model
+ROOT = Path(__file__).resolve().parents[2]
+MODEL = ROOT / "_modelica_test_" / "results"
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "_executor"))
+from validation.iso_core.bestest_pipeline import CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables, run_rclib_matched_forcing, run_rclib_native_solar
+from core.modelica_runner import run_validation_model
 from bestest_iso_run_case6xx import standard, metric
 
 CASES = ("910", "920", "930", "940", "950", "980", "985", "995")
@@ -26,7 +25,7 @@ def main():
     if raw_path.is_file(): raw = pd.read_csv(raw_path)
     elif args.run_modelica: raw, _, _ = run_validation_model(CASE_DEFINITIONS[case].modelica_class)
     else: raise FileNotFoundError(f"Missing {raw_path}; rerun with --run-modelica")
-    out = ROOT / "results" / f"case{case}"; out.mkdir(parents=True, exist_ok=True)
+    out = ROOT / "results" / "1_iso" / f"case{case}"; out.mkdir(parents=True, exist_ok=True)
     modelica = standard(modelica_track(raw), case, "modelica", "native", "modelica_resolved_solar_gain_w")
     (MODEL / f"Case{case}").mkdir(parents=True, exist_ok=True)
     modelica.to_csv(MODEL / f"Case{case}" / f"Case{case}_standardized_hourly.csv", index=False)

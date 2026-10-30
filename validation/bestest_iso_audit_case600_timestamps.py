@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-MODELICA_RAW = ROOT.parent / "_modelica" / "results" / "Case600" / "Case600_res.csv"
+MODELICA_RAW = ROOT / "_modelica_test_" / "results" / "Case600" / "Case600_res.csv"
 ISO_RUN_MODES = {"modelica_solar": "diagnostic_modelica_solar", "native": "native"}
 
 

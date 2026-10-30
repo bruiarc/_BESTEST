@@ -7,11 +7,10 @@ import sys
 import numpy as np
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[1]
-LEGACY = ROOT.parent / "modelica_test_2"
-sys.path.insert(0, str(LEGACY))
-from validation.bestest_pipeline import CASE_DEFINITIONS, _denver_epw, make_rclib_zone  # noqa: E402
-from validation.dependencies import radiation_classes  # noqa: E402
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+from validation.iso_core.bestest_pipeline import CASE_DEFINITIONS, _denver_epw, make_rclib_zone  # noqa: E402
+from validation.iso_core.dependencies import radiation_classes  # noqa: E402
 
 
 def _summary(frame, column):
@@ -117,7 +116,7 @@ def _annual_and_peak_comparison(metrics):
 def main():
     out=ROOT/"results/case600_debug"; out.mkdir(parents=True,exist_ok=True)
     solar=native_trace(); solar.to_csv(out/"native_solar_trace.csv",index=False)
-    raw=pd.read_csv(ROOT.parent / "_modelica/results/Case600/Case600_res.csv")
+    raw=pd.read_csv(ROOT / "_modelica_test_/results/Case600/Case600_res.csv")
     time=solar.timestamp_s.to_numpy(); interp=lambda c: np.interp(time,raw.time,raw[c].astype(float))
     solar["modelica_total_zone_solar_gain_W"] = interp("zonHVAC.solGai.y")
     solar["modelica_window_solar_gain_W"] = interp("zonHVAC.win.solRadWin")

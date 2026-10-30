@@ -9,16 +9,17 @@ import sys
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-MODELICA_ROOT = ROOT / "0_modelica"
-MODELICA_RESULTS = ROOT.parent / "_modelica" / "results"
-sys.path.insert(0, str(MODELICA_ROOT))
+EXECUTOR_ROOT = ROOT / "_executor"
+MODELICA_RESULTS = ROOT / "_modelica_test_" / "results"
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(EXECUTOR_ROOT))
 
-from validation.bestest_pipeline import (  # noqa: E402
+from validation.iso_core.bestest_pipeline import (  # noqa: E402
     CASE_DEFINITIONS, annual_metrics, modelica_track, published_reference_tables,
     run_rclib_matched_forcing, run_rclib_native_solar,
 )
-from validation.modelica_runner import run_validation_model  # noqa: E402
-from validation.bestest_validation import run_case600ff  # noqa: E402
+from core.modelica_runner import run_validation_model  # noqa: E402
+from validation.iso_core.bestest_validation import run_case600ff  # noqa: E402
 
 CASE = "600"
 STANDARD_COLUMNS = ["timestamp_s", "case", "implementation", "run_mode", "formal_ashrae_result", "zone_temperature_C", "heating_load_W", "cooling_load_W", "outdoor_temperature_C", "solar_gain_W"]
