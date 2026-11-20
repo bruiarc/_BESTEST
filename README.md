@@ -1,1 +1,1 @@
-BESTEST
+Software validation via BESTEST.
